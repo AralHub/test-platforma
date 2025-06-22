@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+@import "antd/es/style/reset.css";
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: "Plus Jakarta Sans", sans-serif, "Spline Sans Mono", monospace;
+	min-height: 100%;
+}
+
+body ::-webkit-scrollbar {
+    visibility: hidden;
+    appearance: none;
+    width: 6px;
+    height: 6px;
+    background-color: transparent;
+}
+
+body ::-webkit-scrollbar-thumb {
+    visibility: hidden;
+    border-radius: 3px;
+}
+
+.ant-menu-item {
+    color: #A3AED9 !important;
+    margin-bottom: 20px !important;
+}
+
+.ant-menu-item-selected {
+    border-radius: 5px !important;
+    color: #fff !important;
+}
