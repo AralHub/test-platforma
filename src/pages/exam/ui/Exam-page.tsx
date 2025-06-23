@@ -17,7 +17,7 @@ const { Title } = Typography
 export const ExamPage = () => {
 	const { data, isLoading } = useGetExamList()
 	const {
-		token: { colorPrimary, colorWhite }
+		token: { colorPrimary }
 	} = useToken()
 	const { mutate: deleteExam } = useDeleteExam()
 	const { mutate: updateStatus, isPending } = useUpdateStatus()
@@ -94,7 +94,7 @@ export const ExamPage = () => {
 					<AddButton text="Добавить предмет" />
 				</Flex>
 				<Table
-					style={{ margin: "40px 0px", backgroundColor: colorWhite }}
+					style={{ margin: "40px 0px" }}
 					columns={columns}
 					loading={isLoading}
 					dataSource={data?.data}

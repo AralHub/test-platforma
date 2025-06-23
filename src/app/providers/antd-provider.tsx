@@ -19,6 +19,15 @@ const AntdProvider: FC<PropsWithChildren> = ({ children }) => {
 						fontFamily: `Open Sans,${token.fontFamily}`,
 						colorPrimary: "#113A34",
 						colorBgContainer: "#F4F7FE"
+					},
+					components: {
+						Menu: {
+							itemHeight: 48,
+							itemColor: "rgb(27, 37, 89)",
+							darkItemColor: "rgb(27, 37, 89)",
+							darkItemHoverColor: "rgb(27, 37, 89)",
+							darkItemHoverBg: "rgb(244, 247, 254)"
+						}
 					}
 				}}
 				typography={{

@@ -17,6 +17,7 @@ import { Route as LayoutImport } from "./routes/_layout"
 import { Route as LayoutIndexImport } from "./routes/_layout/index"
 import { Route as AuthAuthLayoutImport } from "./routes/auth/_auth-layout"
 import { Route as AuthAuthLayoutIndexImport } from "./routes/auth/_auth-layout/index"
+import { Route as LayoutUsersIndexImport } from "./routes/_layout/users/index"
 import { Route as LayoutTestIndexImport } from "./routes/_layout/test/index"
 import { Route as LayoutExamIndexImport } from "./routes/_layout/exam/index"
 import { Route as AuthAuthLayoutRegisterImport } from "./routes/auth/_auth-layout/register"
@@ -56,6 +57,12 @@ const AuthAuthLayoutIndexRoute = AuthAuthLayoutIndexImport.update({
   id: "/",
   path: "/",
   getParentRoute: () => AuthAuthLayoutRoute,
+} as any)
+
+const LayoutUsersIndexRoute = LayoutUsersIndexImport.update({
+  id: "/users/",
+  path: "/users/",
+  getParentRoute: () => LayoutRoute,
 } as any)
 
 const LayoutTestIndexRoute = LayoutTestIndexImport.update({
@@ -161,6 +168,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof LayoutTestIndexImport
       parentRoute: typeof LayoutImport
     }
+    "/_layout/users/": {
+      id: "/_layout/users/"
+      path: "/users"
+      fullPath: "/users"
+      preLoaderRoute: typeof LayoutUsersIndexImport
+      parentRoute: typeof LayoutImport
+    }
     "/auth/_auth-layout/": {
       id: "/auth/_auth-layout/"
       path: "/"
@@ -185,6 +199,7 @@ interface LayoutRouteChildren {
   LayoutExamExamidRoute: typeof LayoutExamExamidRoute
   LayoutExamIndexRoute: typeof LayoutExamIndexRoute
   LayoutTestIndexRoute: typeof LayoutTestIndexRoute
+  LayoutUsersIndexRoute: typeof LayoutUsersIndexRoute
   LayoutTestTestIdIndexRoute: typeof LayoutTestTestIdIndexRoute
 }
 
@@ -193,6 +208,7 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutExamExamidRoute: LayoutExamExamidRoute,
   LayoutExamIndexRoute: LayoutExamIndexRoute,
   LayoutTestIndexRoute: LayoutTestIndexRoute,
+  LayoutUsersIndexRoute: LayoutUsersIndexRoute,
   LayoutTestTestIdIndexRoute: LayoutTestTestIdIndexRoute,
 }
 
@@ -234,6 +250,7 @@ export interface FileRoutesByFullPath {
   "/auth/register": typeof AuthAuthLayoutRegisterRoute
   "/exam": typeof LayoutExamIndexRoute
   "/test": typeof LayoutTestIndexRoute
+  "/users": typeof LayoutUsersIndexRoute
   "/auth/": typeof AuthAuthLayoutIndexRoute
   "/test/$testId": typeof LayoutTestTestIdIndexRoute
 }
@@ -246,6 +263,7 @@ export interface FileRoutesByTo {
   "/auth/register": typeof AuthAuthLayoutRegisterRoute
   "/exam": typeof LayoutExamIndexRoute
   "/test": typeof LayoutTestIndexRoute
+  "/users": typeof LayoutUsersIndexRoute
   "/test/$testId": typeof LayoutTestTestIdIndexRoute
 }
 
@@ -260,6 +278,7 @@ export interface FileRoutesById {
   "/auth/_auth-layout/register": typeof AuthAuthLayoutRegisterRoute
   "/_layout/exam/": typeof LayoutExamIndexRoute
   "/_layout/test/": typeof LayoutTestIndexRoute
+  "/_layout/users/": typeof LayoutUsersIndexRoute
   "/auth/_auth-layout/": typeof AuthAuthLayoutIndexRoute
   "/_layout/test/$testId/": typeof LayoutTestTestIdIndexRoute
 }
@@ -275,6 +294,7 @@ export interface FileRouteTypes {
     | "/auth/register"
     | "/exam"
     | "/test"
+    | "/users"
     | "/auth/"
     | "/test/$testId"
   fileRoutesByTo: FileRoutesByTo
@@ -286,6 +306,7 @@ export interface FileRouteTypes {
     | "/auth/register"
     | "/exam"
     | "/test"
+    | "/users"
     | "/test/$testId"
   id:
     | "__root__"
@@ -298,6 +319,7 @@ export interface FileRouteTypes {
     | "/auth/_auth-layout/register"
     | "/_layout/exam/"
     | "/_layout/test/"
+    | "/_layout/users/"
     | "/auth/_auth-layout/"
     | "/_layout/test/$testId/"
   fileRoutesById: FileRoutesById
@@ -334,6 +356,7 @@ export const routeTree = rootRoute
         "/_layout/exam/$exam_id",
         "/_layout/exam/",
         "/_layout/test/",
+        "/_layout/users/",
         "/_layout/test/$testId/"
       ]
     },
@@ -374,6 +397,10 @@ export const routeTree = rootRoute
     },
     "/_layout/test/": {
       "filePath": "_layout/test/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/users/": {
+      "filePath": "_layout/users/index.tsx",
       "parent": "/_layout"
     },
     "/auth/_auth-layout/": {

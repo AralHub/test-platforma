@@ -1,10 +1,9 @@
 import {
 	BookOutlined,
 	CloseOutlined,
-	FormOutlined,
 	HomeOutlined,
-	LoginOutlined,
-	MenuOutlined
+	MenuOutlined,
+	UserOutlined
 } from "@ant-design/icons"
 import {
 	createFileRoute,
@@ -48,15 +47,20 @@ const itemsAdmin: MenuProps["items"] = [
 		label: "Предметы"
 	},
 	{
-		key: "/auth/register",
-		icon: <FormOutlined style={{ fontSize: 16 }} />,
-		label: "Register"
-	},
-	{
-		key: "/auth/login",
-		icon: <LoginOutlined style={{ fontSize: 16 }} />,
-		label: "Login"
+		key: "/users",
+		icon: <UserOutlined style={{ fontSize: 16 }} />,
+		label: "Результаты"
 	}
+	// {
+	// 	key: "/auth/register",
+	// 	icon: <FormOutlined style={{ fontSize: 16 }} />,
+	// 	label: "Register"
+	// },
+	// {
+	// 	key: "/auth/login",
+	// 	icon: <LoginOutlined style={{ fontSize: 16 }} />,
+	// 	label: "Login"
+	// }
 ]
 
 const items: MenuProps["items"] = [
@@ -110,15 +114,24 @@ function RouteComponent() {
 				)}
 				<Flex
 					align="center"
-					justify="center"
-					style={{ padding: "40px 36px 28px" }}
+					style={{
+						paddingLeft: 10,
+						paddingBottom: "28px",
+						paddingTop: "40px",
+						paddingRight: 15
+					}}
 				>
 					<Image src={logo} preview={false} width={100} />
-					<Title level={3} style={{ color: colorPrimary }}>
-						AralHub academy
-					</Title>
+					<Flex vertical={true}>
+						<Title level={2} style={{ color: colorPrimary }}>
+							AralHub
+						</Title>
+						<Title level={4} style={{ color: colorPrimary }}>
+							academy
+						</Title>
+					</Flex>
 				</Flex>
-				<Divider />
+				<Divider style={{ margin: 0 }} />
 				<Menu
 					theme="dark"
 					onClick={(e) => navigate({ to: e.key })}
@@ -130,7 +143,14 @@ function RouteComponent() {
 						fontSize: 16
 					}}
 					defaultSelectedKeys={[pathname]}
-					items={role === "admin" ? itemsAdmin : items}
+					items={
+						(role === "admin" ? itemsAdmin : items)?.map((el) => ({
+							...el,
+							style: {
+								marginBottom: 20
+							}
+						})) as MenuProps["items"]
+					}
 				/>
 			</Sider>
 			<Layout

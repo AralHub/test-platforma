@@ -29,6 +29,9 @@ export const useDeleteExam = () =>
 			await queryClient.refetchQueries({
 				queryKey: ["subjects"]
 			})
+			await queryClient.refetchQueries({
+				queryKey: ["users"]
+			})
 		}
 	})
 
@@ -57,6 +60,9 @@ export const useFinishTest = () =>
 			})
 			await queryClient.refetchQueries({
 				queryKey: ["subjects"]
+			})
+			await queryClient.refetchQueries({
+				queryKey: ["users"]
 			})
 		}
 	})
