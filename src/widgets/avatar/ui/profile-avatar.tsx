@@ -18,7 +18,6 @@ import { formatPhone, tokenStorage } from "src/shared/utils"
 const ProfileAvatar: FC = () => {
 	const navigate = useNavigate()
 	const auth = useAuth()
-	// const { mobile = false } = useResponsive()
 	const { data: profile, isLoading } = useGetMeQuery()
 	const { mutate: logout, isPending, isSuccess } = useLogoutMutation()
 	const {
@@ -73,6 +72,7 @@ const ProfileAvatar: FC = () => {
 							</Flex>
 						</Space>
 						<Menu
+							style={{ backgroundColor: "inherit" }}
 							onSelect={(item) => onSelectMenu(item.key)}
 							items={[
 								{
@@ -97,6 +97,7 @@ const ProfileAvatar: FC = () => {
 				}
 			>
 				<Space style={{ cursor: "pointer" }}>
+					{profile?.data.name}
 					<Avatar
 						icon={
 							isLoading ? (

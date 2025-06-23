@@ -7,6 +7,12 @@ export const useGetQuestionsList = (id: string) =>
 		queryKey: ["questions", id]
 	})
 
+export const useGetAdminQuestions = (id: string) =>
+	useCrudQuery({
+		queryFn: () => questionsService.getAdmin(id),
+		queryKey: ["questions", id]
+	})
+
 export const useCreateQuestion = () =>
 	useCrudMutation({
 		mutationFn: questionsService.create,

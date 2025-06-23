@@ -86,7 +86,7 @@ export const RegisterForm = () => {
 						htmlType={"submit"}
 						block={true}
 					>
-						Получить код
+						Регистрация
 					</Button>
 				</Form.Item>
 			</Form>

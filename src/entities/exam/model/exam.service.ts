@@ -19,7 +19,7 @@ class ExamService {
 		const response = await api.put(`/admin/exams/${id}`, form)
 		return response.data
 	}
-	status = async (id: number) => {
+	status = async (id: number): Promise<ResponseSingleData<Exam>> => {
 		const response = await api.put(`/admin/exams/${id}/status`)
 		return response.data
 	}

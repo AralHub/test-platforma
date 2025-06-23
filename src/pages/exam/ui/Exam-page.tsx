@@ -1,11 +1,7 @@
-import {
-	CaretRightOutlined,
-	EyeOutlined,
-	PauseOutlined
-} from "@ant-design/icons"
+import { CheckOutlined, EyeOutlined, LockOutlined } from "@ant-design/icons"
 import { useNavigate } from "@tanstack/react-router"
 import type { TableProps } from "antd"
-import { Button, Flex, Table, Tag, Typography } from "antd"
+import { Button, Flex, Switch, Table, Tag, Typography } from "antd"
 import type { Exam } from "src/entities/exam"
 import {
 	useDeleteExam,
@@ -24,7 +20,7 @@ export const ExamPage = () => {
 		token: { colorPrimary, colorWhite }
 	} = useToken()
 	const { mutate: deleteExam } = useDeleteExam()
-	const { mutate: updateStatus } = useUpdateStatus()
+	const { mutate: updateStatus, isPending } = useUpdateStatus()
 	const navigate = useNavigate()
 
 	const columns: TableProps<Exam>["columns"] = [
@@ -63,10 +59,13 @@ export const ExamPage = () => {
 			dataIndex: "functions",
 			key: "functions",
 			render: (_, res) => (
-				<Flex gap={10}>
-					<Button
+				<Flex gap={10} align="center">
+					<Switch
 						onClick={() => updateStatus(res.id!)}
-						icon={res.is_active ? <CaretRightOutlined /> : <PauseOutlined />}
+						checkedChildren={<CheckOutlined />}
+						unCheckedChildren={<LockOutlined />}
+						defaultChecked={res.is_active}
+						loading={isPending}
 					/>
 					<EditButton params={res} />
 					<DeleteButton

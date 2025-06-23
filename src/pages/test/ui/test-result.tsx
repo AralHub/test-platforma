@@ -7,8 +7,8 @@ const { Title } = Typography
 export const TestResult: FC<TestResultType> = ({ total_score }) => {
 	return (
 		<Space direction="vertical" size="large">
-			<Title level={3} style={{ margin: 0 }}>
-				Ваш результат: {total_score}%
+			<Title level={4} style={{ margin: 0 }}>
+				Ваш результат: {total_score} правильных
 			</Title>
 		</Space>
 	)

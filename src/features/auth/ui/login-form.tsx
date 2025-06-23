@@ -23,6 +23,7 @@ export const LoginForm = () => {
 		isPending: loginLoading,
 		isSuccess
 	} = useLoginMutation()
+
 	const onFinish: FormProps<LoginFormType>["onFinish"] = (values) => {
 		if (values.phone_number) {
 			values.phone_number = formatFormPhone(values.phone_number)
@@ -36,6 +37,7 @@ export const LoginForm = () => {
 			navigate({ to: "/test", replace: true })
 		}
 	}, [auth, isSuccess, loginData?.data, navigate])
+
 	return (
 		<Form
 			autoComplete={"off"}

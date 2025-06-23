@@ -10,7 +10,7 @@ import type {
 
 class AuthService {
 	getMe = async (): Promise<ResponseSingleData<User>> => {
-		const response = await api.get(`/user/me`)
+		const response = await api.get(`/users/me`)
 		return response.data
 	}
 

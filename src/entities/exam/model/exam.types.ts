@@ -4,6 +4,8 @@ export type Exam = {
 	description: string
 	time_limit_minutes: number
 	is_active: boolean
+	total_score?: number
+	passed?: boolean
 }
 
 export type Start = {

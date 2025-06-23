@@ -1,5 +1,6 @@
 import {
 	BookOutlined,
+	CloseOutlined,
 	FormOutlined,
 	HomeOutlined,
 	LoginOutlined,
@@ -15,7 +16,7 @@ import {
 import type { MenuProps } from "antd"
 import { Divider, Flex, Image, Layout, Menu, Typography } from "antd"
 import { useResponsive } from "antd-style"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useAuth, useToken } from "src/shared/hooks"
 import logo from "../shared/assets/logo.svg"
 import { ProfileAvatar } from "src/widgets/avatar"
@@ -35,7 +36,7 @@ export const Route = createFileRoute("/_layout")({
 const { Title } = Typography
 const { Header, Content, Footer, Sider } = Layout
 
-const items: MenuProps["items"] = [
+const itemsAdmin: MenuProps["items"] = [
 	{
 		key: "/test",
 		icon: <HomeOutlined style={{ fontSize: 16 }} />,
@@ -58,30 +59,63 @@ const items: MenuProps["items"] = [
 	}
 ]
 
+const items: MenuProps["items"] = [
+	{
+		key: "/test",
+		icon: <HomeOutlined style={{ fontSize: 16 }} />,
+		label: "Тесты"
+	}
+]
+
 function RouteComponent() {
 	const { mobile } = useResponsive()
-	const [collapsed, setCollapsed] = useState(mobile)
+	const [collapsed, setCollapsed] = useState(false)
 	const {
-		token: { colorBgContainer, colorWhite, colorPrimary, sizeMD }
+		token: { colorBgContainer, colorWhite, colorPrimary, sizeMD, sizeXL }
 	} = useToken()
 	const navigate = useNavigate()
 	const { pathname } = useLocation()
-	const { isAuth } = useAuth()
+	const { isAuth, role } = useAuth()
+
+	useEffect(() => {
+		setCollapsed(mobile ?? false)
+	}, [mobile])
+
 	return (
 		<Layout hasSider={true}>
 			<Sider
 				width={295}
 				collapsed={collapsed}
 				collapsedWidth={0}
-				style={{
-					backgroundColor: colorWhite,
-					height: "100vh"
-				}}
+				style={
+					mobile
+						? {
+								backgroundColor: colorWhite,
+								minHeight: "100vh",
+								overflow: "auto",
+								position: "fixed",
+								zIndex: 1
+							}
+						: { backgroundColor: colorWhite, minHeight: "100vh" }
+				}
 			>
-				<Flex style={{ padding: "40px 36px 28px" }}>
+				{mobile && (
+					<Flex
+						onClick={() => setCollapsed(true)}
+						justify="flex-end"
+						style={{ padding: "20px" }}
+					>
+						<CloseOutlined style={{ fontSize: sizeXL }} />
+					</Flex>
+				)}
+				<Flex
+					align="center"
+					justify="center"
+					style={{ padding: "40px 36px 28px" }}
+				>
 					<Image src={logo} preview={false} width={100} />
 					<Title level={3} style={{ color: colorPrimary }}>
-						AralHub Academy
+						AralHub academy
 					</Title>
 				</Flex>
 				<Divider />
@@ -96,12 +130,13 @@ function RouteComponent() {
 						fontSize: 16
 					}}
 					defaultSelectedKeys={[pathname]}
-					items={items}
+					items={role === "admin" ? itemsAdmin : items}
 				/>
 			</Sider>
 			<Layout
 				style={{
 					backgroundColor: colorBgContainer,
+					minHeight: "100vh",
 					paddingLeft: 30,
 					paddingRight: 24
 				}}

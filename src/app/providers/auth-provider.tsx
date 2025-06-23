@@ -10,7 +10,7 @@ import { tokenStorage } from "src/shared/utils"
 
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 	const [isAuth, setIsAuth] = useState(() => !!tokenStorage.getAccess())
-	const [role, setRole] = useState(tokenStorage.getRole())
+	const [role, setRole] = useState(() => tokenStorage.getRole())
 
 	const login: AuthContextValues["login"] = useCallback((token) => {
 		tokenStorage.setAccess(token?.access_token)
@@ -19,6 +19,7 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 		}
 		if (token?.role) {
 			tokenStorage.setRole(token?.role)
+			setRole(token?.role)
 		}
 		setIsAuth(true)
 	}, [])

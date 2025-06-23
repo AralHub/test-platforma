@@ -26,18 +26,22 @@ export const TestPage = () => {
 			title: "",
 			render: (_, res) => (
 				<Flex>
-					<Button
-						type="primary"
-						onClick={() => {
-							startTest(res.id!)
-							navigate({
-								to: "/test/$testId",
-								params: { testId: String(res.id!) }
-							})
-						}}
-					>
-						Начать тест
-					</Button>
+					{res.passed ? (
+						<>Ваш результат: {res.total_score} правильных</>
+					) : (
+						<Button
+							type="primary"
+							onClick={() => {
+								startTest(res.id!)
+								navigate({
+									to: "/test/$testId",
+									params: { testId: String(res.id!) }
+								})
+							}}
+						>
+							Начать тест
+						</Button>
+					)}
 				</Flex>
 			)
 		}

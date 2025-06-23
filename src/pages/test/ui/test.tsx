@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "@tanstack/react-router"
 import type { RadioChangeEvent } from "antd"
-import { App, Button, Card, Flex, Grid, Radio } from "antd"
+import { App, Button, Card, Flex, Grid, Radio, Image } from "antd"
 import { useEffect, useState } from "react"
 import { useFinishTest, type Answer } from "src/entities/exam"
 import { useGetQuestionsList } from "src/entities/questions"
@@ -51,17 +51,18 @@ export const Test = () => {
 			<Timer
 				started_at={questions?.data.started_at}
 				ended_at={questions?.data.ended_at}
+				onFinish={onFinishedTest}
 			/>
 			<Flex
 				vertical={true}
 				gap={16}
 				style={{
-					padding: isMobile ? "8px" : "24px",
+					padding: isMobile ? "20px 0px" : "24px",
 					maxWidth: 800,
 					margin: "0 auto"
 				}}
 			>
-				{questions?.data.questions.map((item, index) => (
+				{questions?.data?.questions?.map((item, index) => (
 					<Card
 						title={
 							<span>
@@ -77,6 +78,16 @@ export const Test = () => {
 							body: { padding: isMobile ? "8px 12px" : "16px 24px" }
 						}}
 					>
+						{item.image_url && (
+							<Flex justify="center">
+								<Image
+									width={200}
+									height={200}
+									src={item.image_url}
+									style={{ padding: "20px 0px" }}
+								/>
+							</Flex>
+						)}
 						<Radio.Group
 							onChange={({ target: { value } }: RadioChangeEvent) => {
 								onChangeVariant({ question_id: item.id, option_id: value })

@@ -43,3 +43,27 @@ body ::-webkit-scrollbar-thumb {
     border-radius: 5px !important;
     color: #fff !important;
 }
+
+
+/* Убираем стили фокуса у обычного Input */
+.ant-input:focus,
+.ant-input-focused {
+  box-shadow: none !important;
+  border-color: inherit !important;
+}
+
+/* Убираем стили фокуса у Input внутри Form.Item (если используется) */
+.ant-input-status-success:focus,
+.ant-input-status-error:focus,
+.ant-input-status-warning:focus,
+.ant-input-status-validating:focus {
+  box-shadow: none !important;
+  border-color: inherit !important;
+}
+
+/* Если используешь Input.Password или другие производные: */
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  box-shadow: none !important;
+  border-color: inherit !important;
+}

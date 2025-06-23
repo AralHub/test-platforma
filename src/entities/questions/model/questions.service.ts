@@ -1,17 +1,21 @@
-import type { ResponseSingleData } from "src/shared/api"
+import type { ResponseData, ResponseSingleData } from "src/shared/api"
 import { api } from "src/shared/api"
-import type { AddImage, QuestionCreate, QuestionsData } from ".."
+import type { AddImage, QuestionCreate, Questions, QuestionsData } from ".."
 
 class QuestionsService {
 	get = async (id: string): Promise<ResponseSingleData<QuestionsData>> => {
 		const response = await api.get(`/exams/${id}/questions`)
 		return response.data
 	}
+	getAdmin = async (id: string): Promise<ResponseData<Questions>> => {
+		const response = await api.get(`/admin/exams/${id}/questions`)
+		return response.data
+	}
 	addImage = async ({ question_id, image }: AddImage) => {
 		const imageFormData = new FormData()
 		imageFormData.append("image", image)
 		const response = await api.put(
-			`/questions/exams/questions/${question_id}/image`,
+			`/admin/exams/questions/${question_id}/image`,
 			imageFormData
 		)
 		return response.data

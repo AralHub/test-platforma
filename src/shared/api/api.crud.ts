@@ -1,4 +1,4 @@
-import type { QueryKey } from "@tanstack/query-core"
+import type { QueryClient, QueryKey } from "@tanstack/query-core"
 import {
 	type InvalidateQueryFilters,
 	keepPreviousData,
@@ -46,27 +46,12 @@ export const useCrudQuery = <
 >(
 	options: UseCrudQueryOptions<TQueryFnData, TError, TData, TQueryKey>
 ) => {
-	const { error, onError, renderError, errorRedirect, ...queryOptions } =
-		options
-	const { message } = useMessage()
+	const { onError, errorRedirect, ...queryOptions } = options
 	const { navigate } = useRouter()
 
 	return useQuery<TQueryFnData, TError, TData, TQueryKey>({
 		placeholderData: keepPreviousData,
 		throwOnError: (e) => {
-			const customError = renderError?.(e) ||
-				error || {
-					description:
-						e?.response?.data?.message ||
-						e?.response?.data?.detail ||
-						e?.message
-				}
-			if (customError) {
-				message.error({
-					message: "Ошибка",
-					...customError
-				})
-			}
 			onError?.()
 			if (errorRedirect) navigate(errorRedirect)
 			throw e
@@ -88,6 +73,7 @@ interface UseCrudMutationOptions<
 	redirect?: ErrorRedirect
 	invalidate?: InvalidateQueryFilters
 	invalidates?: InvalidateQueryFilters[]
+	onSuccessQueryClient?: (queryClient: QueryClient, data: TData) => void
 }
 
 export const useCrudMutation = <
@@ -105,6 +91,7 @@ export const useCrudMutation = <
 		error,
 		renderError,
 		onSuccess,
+		onSuccessQueryClient,
 		onError,
 		invalidate,
 		invalidates,
@@ -130,6 +117,7 @@ export const useCrudMutation = <
 					queryClient.invalidateQueries(invalid)
 				})
 			}
+			onSuccessQueryClient?.(queryClient, data)
 			onSuccess?.(data, ...args)
 		},
 		onError: (e, ...args) => {

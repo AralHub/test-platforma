@@ -19,16 +19,17 @@ export const useEditExam = () =>
 		invalidate: { queryKey: ["exam"] }
 	})
 
-export const useUpdateStatus = () =>
-	useCrudMutation({
-		mutationFn: examService.status,
-		invalidate: { queryKey: ["exam"] }
-	})
-
 export const useDeleteExam = () =>
 	useCrudMutation({
 		mutationFn: examService.delete,
-		invalidate: { queryKey: ["exam"] }
+		onSuccessQueryClient: async (queryClient) => {
+			await queryClient.refetchQueries({
+				queryKey: ["exam"]
+			})
+			await queryClient.refetchQueries({
+				queryKey: ["subjects"]
+			})
+		}
 	})
 
 export const useGetExamSubjects = () =>
@@ -37,11 +38,38 @@ export const useGetExamSubjects = () =>
 export const useStartTest = () =>
 	useCrudMutation({
 		mutationFn: examService.start,
-		invalidate: { queryKey: ["subjects"] }
+		onSuccessQueryClient: async (queryClient) => {
+			await queryClient.refetchQueries({
+				queryKey: ["exam"]
+			})
+			await queryClient.refetchQueries({
+				queryKey: ["questions"]
+			})
+		}
 	})
 
 export const useFinishTest = () =>
 	useCrudMutation({
 		mutationFn: examService.finish,
-		invalidate: { queryKey: ["subjects"] }
+		onSuccessQueryClient: async (queryClient) => {
+			await queryClient.refetchQueries({
+				queryKey: ["exam"]
+			})
+			await queryClient.refetchQueries({
+				queryKey: ["subjects"]
+			})
+		}
+	})
+
+export const useUpdateStatus = () =>
+	useCrudMutation({
+		mutationFn: examService.status,
+		onSuccessQueryClient: async (queryClient) => {
+			await queryClient.refetchQueries({
+				queryKey: ["exam"]
+			})
+			await queryClient.refetchQueries({
+				queryKey: ["subjects"]
+			})
+		}
 	})
