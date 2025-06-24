@@ -43,7 +43,7 @@ export const useStartTest = () =>
 		mutationFn: examService.start,
 		onSuccessQueryClient: async (queryClient) => {
 			await queryClient.refetchQueries({
-				queryKey: ["exam"]
+				queryKey: ["subjects"]
 			})
 			await queryClient.refetchQueries({
 				queryKey: ["questions"]
@@ -55,9 +55,6 @@ export const useFinishTest = () =>
 	useCrudMutation({
 		mutationFn: examService.finish,
 		onSuccessQueryClient: async (queryClient) => {
-			await queryClient.refetchQueries({
-				queryKey: ["exam"]
-			})
 			await queryClient.refetchQueries({
 				queryKey: ["subjects"]
 			})

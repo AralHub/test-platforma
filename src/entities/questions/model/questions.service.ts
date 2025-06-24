@@ -3,11 +3,15 @@ import { api } from "src/shared/api"
 import type { AddImage, QuestionCreate, Questions, QuestionsData } from ".."
 
 class QuestionsService {
-	get = async (id: string): Promise<ResponseSingleData<QuestionsData>> => {
+	get = async (
+		id: string | undefined
+	): Promise<ResponseSingleData<QuestionsData>> => {
 		const response = await api.get(`/exams/${id}/questions`)
 		return response.data
 	}
-	getAdmin = async (id: string): Promise<ResponseData<Questions>> => {
+	getAdmin = async (
+		id: string | undefined
+	): Promise<ResponseData<Questions>> => {
 		const response = await api.get(`/admin/exams/${id}/questions`)
 		return response.data
 	}

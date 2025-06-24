@@ -13,14 +13,15 @@ const { useApp } = App
 
 export const Test = () => {
 	const { testId } = useParams({ strict: false })
+
 	const navigate = useNavigate()
 	const [testValues, setTestValues] = useState<Answer[]>([])
 	const {
 		token: { colorWhite }
 	} = useToken()
 	const { modal } = useApp()
-	const { data: questions } = useGetQuestionsList(testId!)
-	const { mutate: finish, data: result, isSuccess } = useFinishTest()
+	const { data: questions } = useGetQuestionsList(testId)
+	const { mutate: finish, data: result, isSuccess, isPending } = useFinishTest()
 	const screens = useBreakpoint()
 	const isMobile = screens.xs || !screens.md
 	const onChangeVariant = ({ question_id, option_id }: Answer) => {
@@ -106,7 +107,7 @@ export const Test = () => {
 						/>
 					</Card>
 				))}
-				<Button type="primary" onClick={onFinishedTest}>
+				<Button type="primary" onClick={onFinishedTest} loading={isPending}>
 					Завершить тест
 				</Button>
 			</Flex>

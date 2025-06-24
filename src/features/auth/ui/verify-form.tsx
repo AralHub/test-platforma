@@ -1,9 +1,11 @@
-import type { FormProps } from "antd"
+import type { FormProps, GetProps } from "antd"
 import { Input, Form, App, Modal, Button, Flex } from "antd"
 import type { VerifyFormType } from "../model/types"
 import { useVerifyMutation } from "../api/api"
-import { useEffect, type FC } from "react"
+import { useEffect, useState, type FC } from "react"
 import { useNavigate } from "@tanstack/react-router"
+
+type OTPProps = GetProps<typeof Input.OTP>
 
 interface VerifyFormProps {
 	phone_number: string | undefined
@@ -19,6 +21,7 @@ export const VerifyForm: FC<VerifyFormProps> = ({
 	onCancel
 }) => {
 	const [form] = Form.useForm<VerifyFormType>()
+	const [verifyCode, setVerifyCod] = useState<string>("")
 	const navigate = useNavigate()
 	const { message } = useApp()
 	const {
@@ -34,20 +37,20 @@ export const VerifyForm: FC<VerifyFormProps> = ({
 		}
 	}, [isSuccess, message, navigate])
 
-	const onFinish: FormProps<VerifyFormType>["onFinish"] = (values) => {
-		verify({ phone_number: phone_number!, code: values.code })
+	const onFinish: FormProps<VerifyFormType>["onFinish"] = () => {
+		verify({ phone_number: phone_number!, code: verifyCode })
+	}
+	const onChange: OTPProps["onChange"] = (text) => {
+		setVerifyCod(text)
 	}
 
 	return (
 		<Modal
-			title="Подтверждение"
+			title={<Flex justify="center">Подтверждение</Flex>}
 			open={isModalOpen}
-			maskClosable={false}
-			closable={false}
-			mask={false}
 			footer={null}
-			okText="Подтвердить"
-			cancelText="Отмена"
+			centered={true}
+			onCancel={onCancel}
 		>
 			<Form
 				autoComplete={"off"}
@@ -68,13 +71,12 @@ export const VerifyForm: FC<VerifyFormProps> = ({
 					name={"code"}
 					rules={[{ required: true }]}
 				>
-					<Input placeholder={"Код"} />
+					<Flex justify="center" style={{ marginTop: 20 }}>
+						<Input.OTP length={5} onChange={onChange} />
+					</Flex>
 				</Form.Item>
 				<Form.Item noStyle={true}>
-					<Flex justify="flex-end" gap={10}>
-						<Button htmlType={"reset"} onClick={onCancel}>
-							Отменить
-						</Button>
+					<Flex justify="center" gap={10}>
 						<Button
 							loading={verifyLoading}
 							type={"primary"}

@@ -2,7 +2,9 @@ import {
 	BookOutlined,
 	CloseOutlined,
 	HomeOutlined,
+	InstagramOutlined,
 	MenuOutlined,
+	SendOutlined,
 	UserOutlined
 } from "@ant-design/icons"
 import {
@@ -13,7 +15,7 @@ import {
 	useNavigate
 } from "@tanstack/react-router"
 import type { MenuProps } from "antd"
-import { Divider, Flex, Image, Layout, Menu, Typography } from "antd"
+import { Divider, Flex, Image, Layout, Menu, Space, Typography } from "antd"
 import { useResponsive } from "antd-style"
 import { useEffect, useState } from "react"
 import { useAuth, useToken } from "src/shared/hooks"
@@ -32,7 +34,7 @@ export const Route = createFileRoute("/_layout")({
 	}
 })
 
-const { Title } = Typography
+const { Title, Text } = Typography
 const { Header, Content, Footer, Sider } = Layout
 
 const itemsAdmin: MenuProps["items"] = [
@@ -179,9 +181,45 @@ function RouteComponent() {
 				<Content>
 					<Outlet />
 				</Content>
-				<Footer style={{ textAlign: "center", backgroundColor: "inherit" }}>
-					AralHub Academy
-				</Footer>
+				{!mobile && (
+					<Footer style={{ padding: "10px 0px", backgroundColor: "inherit" }}>
+						<Flex justify="space-between" align="center">
+							<Flex align="center" gap={20}>
+								<Text style={{ fontSize: "18px", color: colorPrimary }}>
+									<Image src={logo} preview={false} width={50} />
+									AralHub Academy
+								</Text>
+							</Flex>
+							<Text type="secondary" style={{ fontSize: "13px" }}>
+								© {new Date().getFullYear()} AralHub Academy. Все права
+								защищены.
+							</Text>
+							<Space size="large">
+								<Title level={5}>
+									<Text type="secondary">Телефон: +998913803514</Text>
+								</Title>
+								<Flex gap={10}>
+									<a
+										href="https://instagram.com/aralhub"
+										target="_blank"
+										rel="noopener noreferrer"
+										style={{ color: "#E1306C" }}
+									>
+										<InstagramOutlined style={{ fontSize: "22px" }} />
+									</a>
+									<a
+										href="https://t.me/aralhub"
+										target="_blank"
+										rel="noopener noreferrer"
+										style={{ color: "#0088cc" }}
+									>
+										<SendOutlined style={{ fontSize: "22px" }} />
+									</a>
+								</Flex>
+							</Space>
+						</Flex>
+					</Footer>
+				)}
 			</Layout>
 		</Layout>
 	)

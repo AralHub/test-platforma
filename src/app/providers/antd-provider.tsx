@@ -27,6 +27,13 @@ const AntdProvider: FC<PropsWithChildren> = ({ children }) => {
 							darkItemColor: "rgb(27, 37, 89)",
 							darkItemHoverColor: "rgb(27, 37, 89)",
 							darkItemHoverBg: "rgb(244, 247, 254)"
+						},
+						Modal: {
+							contentBg: "#F4F7FE",
+							headerBg: "#F4F7FE"
+						},
+						Input: {
+							activeShadow: ""
 						}
 					}
 				}}

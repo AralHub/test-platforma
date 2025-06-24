@@ -1,17 +1,20 @@
 import { PhoneOutlined } from "@ant-design/icons"
 import type { FormProps } from "antd"
-import { Input, Form, Divider, Button } from "antd"
+import { Input, Form, Divider, Button, App } from "antd"
 import { formatFormPhone } from "src/shared/utils"
 import type { RegisterFormType } from "../model/types"
 import { useRegisterMutation } from "../api/api"
 import { VerifyForm } from "./verify-form"
 import { useEffect, useState } from "react"
 import { useToken } from "src/shared/hooks"
+import { Link } from "@tanstack/react-router"
 
 const { Password: InputPassword } = Input
+const { useApp } = App
 
 export const RegisterForm = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false)
+	const { notification } = useApp()
 	const [form] = Form.useForm<RegisterFormType>()
 	const {
 		token: { colorPrimary }
@@ -25,8 +28,14 @@ export const RegisterForm = () => {
 	} = useRegisterMutation()
 
 	useEffect(() => {
-		if (isSuccess) setIsModalOpen(true)
-	}, [isSuccess])
+		if (isSuccess) {
+			setIsModalOpen(true)
+			notification.success({
+				placement: "topRight",
+				message: "На этот номер телефона отправлен код подтверждения"
+			})
+		}
+	}, [isSuccess, notification])
 
 	const onFinish: FormProps<RegisterFormType>["onFinish"] = (values) => {
 		if (values.phone_number) {
@@ -35,9 +44,8 @@ export const RegisterForm = () => {
 		register(values)
 	}
 
-	const handleCancel = () => {
-		setIsModalOpen(false)
-	}
+	const onCancel = () => setIsModalOpen(false)
+
 	return (
 		<>
 			<Form
@@ -75,6 +83,10 @@ export const RegisterForm = () => {
 				>
 					<InputPassword placeholder={"Пароль"} />
 				</Form.Item>
+
+				<Link to="/auth/login" style={{ color: colorPrimary }}>
+					У меня уже есть аккаунт
+				</Link>
 				<Divider style={{ marginBlock: 8 }} />
 				<Form.Item noStyle={true}>
 					<Button
@@ -91,9 +103,9 @@ export const RegisterForm = () => {
 				</Form.Item>
 			</Form>
 			<VerifyForm
+				onCancel={onCancel}
 				isModalOpen={isModalOpen}
 				phone_number={registerData?.data.phone_number}
-				onCancel={handleCancel}
 			/>
 		</>
 	)

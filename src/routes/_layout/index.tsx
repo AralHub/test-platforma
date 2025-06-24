@@ -1,10 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router"
-import { HomePage } from "src/pages/home"
+import { createFileRoute, Navigate } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/_layout/")({
 	component: RouteComponent
 })
 
 function RouteComponent() {
-	return <HomePage />
+	return <Navigate to="/test" />
 }

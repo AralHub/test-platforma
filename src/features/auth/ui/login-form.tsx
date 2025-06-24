@@ -1,5 +1,5 @@
 import { PhoneOutlined } from "@ant-design/icons"
-import { useNavigate } from "@tanstack/react-router"
+import { Link, useNavigate } from "@tanstack/react-router"
 import type { FormProps } from "antd"
 import { Input, Form, Divider, Button } from "antd"
 import { useEffect } from "react"
@@ -67,6 +67,9 @@ export const LoginForm = () => {
 			>
 				<InputPassword placeholder={"Пароль"} />
 			</Form.Item>
+			<Link to="/auth/register" style={{ color: colorPrimary }}>
+				Нет аккаунта?
+			</Link>
 			<Divider style={{ marginBlock: 8 }} />
 			<Form.Item noStyle={true}>
 				<Button

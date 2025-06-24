@@ -17,7 +17,7 @@ export const QuestionsPage = () => {
 	const {
 		token: { colorWhite }
 	} = useToken()
-	const { data } = useGetAdminQuestions(exam_id!)
+	const { data } = useGetAdminQuestions(exam_id)
 	const { mutate: deleteQuestion } = useDeleteQuestion()
 	const { mutate: addImage } = useAddImage()
 	const navigate = useNavigate()
