@@ -102,7 +102,14 @@ function RouteComponent() {
 								position: "fixed",
 								zIndex: 1
 							}
-						: { backgroundColor: colorWhite, minHeight: "100vh" }
+						: {
+								backgroundColor: colorWhite,
+								height: "100vh",
+								position: "sticky",
+								left: 0,
+								top: 0,
+								bottom: 0
+							}
 				}
 			>
 				{mobile && (
