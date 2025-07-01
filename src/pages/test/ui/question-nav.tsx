@@ -22,7 +22,8 @@ export const QuestionNav: React.FC<QuestionNavProps> = ({
 						style={{
 							width: 40,
 							height: 40,
-							borderRadius: 24
+							borderRadius: 24,
+							opacity: testValues.some((el) => el == id) ? 0.5 : 1
 						}}
 					>
 						{index + 1}
