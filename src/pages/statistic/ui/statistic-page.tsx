@@ -1,13 +1,14 @@
 import { Card, Flex, Segmented, Select, Space, Typography } from "antd"
 import type { EChartsOption } from "echarts"
 import EchartsReact from "echarts-for-react"
-import { useEffect, useMemo, useState } from "react"
-import { Stats, useGetExamList, useGetStats } from "src/entities/exam"
+import { useEffect, useState } from "react"
+import type { Stats} from "src/entities/exam"
+import { useGetExamList, useGetStats } from "src/entities/exam"
 import { formatNumber } from "src/shared/utils"
 
 const { Title } = Typography
 
-const getOption = (data: Stats[]) => {
+const useGetOption = (data: Stats[]) => {
 	const option: EChartsOption = {
 		color: ["#113A34"],
 		tooltip: {
@@ -63,18 +64,19 @@ export const StatisticPage = () => {
 	const [variant, setVariant] = useState("1")
 	const [exam, setExam] = useState<number>()
 	const { data: exams, isLoading: examsLoading } = useGetExamList()
-	const { data: stats, isLoading } = useGetStats(exam, {
-		most_correct: exam === 1
+	const { data: stats, isLoading, isFetching } = useGetStats(exam, {
+		most_correct: variant === "1"
 	})
 
-	const option = useMemo(() => getOption(stats?.data || []), [stats])
+	const option = useGetOption(stats?.data || [])
 
 	useEffect(() => {
+		if (exam) return
 		if (exams && exams?.data) {
 			const [current] = exams.data
 			setExam(current?.id)
 		}
-	}, [exams])
+	}, [exams, exam])
 	return (
 		<>
 			<Flex justify="space-between" style={{ padding: "20px 0px" }}>
@@ -113,7 +115,7 @@ export const StatisticPage = () => {
 					</Space>
 				}
 			>
-				<EchartsReact option={option} />
+				<EchartsReact showLoading={isFetching} option={option} />
 			</Card>
 		</>
 	)

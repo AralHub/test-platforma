@@ -1,6 +1,6 @@
 import { useCrudMutation, useCrudQuery } from "src/shared/api"
 import { examService } from "../model/exam.service"
-import { GetParams } from "src/shared/types"
+import type { GetParams } from "src/shared/types"
 
 export const useCreateExam = () =>
 	useCrudMutation({
@@ -17,7 +17,7 @@ export const useGetExamList = () =>
 export const useGetStats = (id: string | number | undefined, params: GetParams) =>
 	useCrudQuery({
 		queryFn: () => examService.getStats(id, params),
-		queryKey: ["exam", "stats", ...Object.values(params)],
+		queryKey: ["exam", "stats", id, ...Object.values(params)],
 		enabled: !!id
 	})
 
