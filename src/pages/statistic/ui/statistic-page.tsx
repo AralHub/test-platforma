@@ -71,7 +71,7 @@ export const StatisticPage = () => {
 
 	useEffect(() => {
 		if (exams && exams?.data) {
-			const [current] = exams?.data
+			const [current] = exams.data
 			setExam(current?.id)
 		}
 	}, [exams])
