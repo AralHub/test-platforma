@@ -1,5 +1,5 @@
 import type { TableProps } from "antd"
-import { Divider, Flex, Table, Typography } from "antd"
+import { Flex, Table, Typography } from "antd"
 import type { Users } from "src/entities/users"
 import { useGetUsersList } from "src/entities/users"
 
@@ -21,12 +21,7 @@ export const UsersPage = () => {
 			render: (_, res) => (
 				<Flex vertical={true} gap={10}>
 					{res.exams.map((item) => (
-						<div key={item.id}>
-							{item.title}{" "}
-							<Divider
-								style={{ margin: "15px 0px", backgroundColor: "#f0f0f0" }}
-							/>
-						</div>
+						<div key={item.id}>{item.title} </div>
 					))}
 				</Flex>
 			)
@@ -38,12 +33,7 @@ export const UsersPage = () => {
 			render: (_, res) => (
 				<Flex vertical={true} gap={10}>
 					{res.exams.map((item) => (
-						<div key={item.id}>
-							{item.total_time} минут{" "}
-							<Divider
-								style={{ margin: "15px 0px", backgroundColor: "#f0f0f0" }}
-							/>
-						</div>
+						<div key={item.id}>{item.total_time} минут </div>
 					))}
 				</Flex>
 			)
@@ -55,12 +45,7 @@ export const UsersPage = () => {
 			render: (_, res) => (
 				<Flex vertical={true} gap={10}>
 					{res.exams.map((item) => (
-						<div key={item.id}>
-							{item.total_score}{" "}
-							<Divider
-								style={{ margin: "15px 0px", backgroundColor: "#f0f0f0" }}
-							/>
-						</div>
+						<div key={item.id}>{item.total_score} </div>
 					))}
 				</Flex>
 			)

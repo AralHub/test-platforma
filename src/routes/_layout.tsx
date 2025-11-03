@@ -41,18 +41,23 @@ const itemsAdmin: MenuProps["items"] = [
 	{
 		key: "/test",
 		icon: <HomeOutlined style={{ fontSize: 16 }} />,
-		label: "Тесты"
+		label: "Тест"
 	},
 	{
 		key: "/exam",
 		icon: <BookOutlined style={{ fontSize: 16 }} />,
-		label: "Предметы"
+		label: "Предмет"
 	},
 	{
 		key: "/users",
 		icon: <UserOutlined style={{ fontSize: 16 }} />,
-		label: "Результаты"
+		label: "Результат"
 	}
+	// {
+	// 	key: "/statistic",
+	// 	icon: <OrderedListOutlined style={{ fontSize: 16 }} />,
+	// 	label: "Статистика"
+	// }
 	// {
 	// 	key: "/auth/register",
 	// 	icon: <FormOutlined style={{ fontSize: 16 }} />,
