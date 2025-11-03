@@ -8,7 +8,7 @@ import { formatNumber } from "src/shared/utils"
 
 const { Title } = Typography
 
-const useGetOption = (data: Stats[]) => {
+const useGetOption = (data: Stats[], mostCurrent: boolean) => {
 	const option: EChartsOption = {
 		color: ["#113A34"],
 		tooltip: {
@@ -29,7 +29,7 @@ const useGetOption = (data: Stats[]) => {
 			type: "category",
 			data: data.map(
 				(value, index) =>
-					`Вопрос ${index + 1},\nКоличество решении: ${value.count},\nКоличество пользователей: ${value.total_responses}`
+					`Вопрос ${index + 1},\nКоличество ${mostCurrent ? "правильных" : "неправильных"} ответов: ${value.count},\nКоличество решении: ${value.total_responses}`
 			),
 			axisTick: {
 				alignWithLabel: true
@@ -68,7 +68,7 @@ export const StatisticPage = () => {
 		most_correct: variant === "1"
 	})
 
-	const option = useGetOption(stats?.data || [])
+	const option = useGetOption(stats?.data || [], variant === "1")
 
 	useEffect(() => {
 		if (exam) return

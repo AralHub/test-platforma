@@ -1,1 +1,1 @@
-export * from "./ui/exam-page"
+export * from "./ui/Exam-page"
