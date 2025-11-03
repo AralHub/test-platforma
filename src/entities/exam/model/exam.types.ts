@@ -8,6 +8,13 @@ export type Exam = {
 	passed?: boolean
 }
 
+export type Stats = {
+	question_id: number
+	total_responses: number
+	count: number
+	percent: number
+}
+
 export type Start = {
 	user_id: number
 	exam_id: number

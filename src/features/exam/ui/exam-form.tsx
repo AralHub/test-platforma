@@ -1,5 +1,5 @@
 import type { FormProps } from "antd"
-import { Form, Input } from "antd"
+import { Form, Input, InputNumber } from "antd"
 import { FormDrawer } from "src/shared/ui"
 import { useFormDevtoolsStore } from "src/shared/store"
 import { useEffect } from "react"
@@ -55,7 +55,7 @@ export const ExamForm = () => {
 					name={"time_limit_minutes"}
 					label={"Время теста в минутах"}
 				>
-					<Input />
+					<InputNumber style={{ width: "100%" }} />
 				</Form.Item>
 			</Form>
 		</FormDrawer>

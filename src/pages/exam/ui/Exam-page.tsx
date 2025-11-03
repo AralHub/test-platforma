@@ -55,6 +55,9 @@ export const ExamPage = () => {
 			render: (item) => <>{item} минут</>
 		},
 		{
+			width: 100,
+			fixed: "right",
+			align: "center",
 			title: "Функции",
 			dataIndex: "functions",
 			key: "functions",

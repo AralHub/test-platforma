@@ -12,7 +12,7 @@ function RootComponent() {
 	return (
 		<>
 			<Outlet />
-			<ReactQueryDevtools />
+			<ReactQueryDevtools buttonPosition={"bottom-left"} />
 		</>
 	)
 }

@@ -52,32 +52,64 @@ export const QuestionsForm = () => {
 				onFinish={onFinish}
 				autoComplete="off"
 			>
-				<Form.Item name="text" rules={[{ required: true }]}>
+				<Form.Item
+					name="text"
+					label={"вопрос"}
+					labelCol={{
+						style: {
+							display: "none"
+						}
+					}}
+					rules={[{ required: true }]}
+				>
 					<Input.TextArea placeholder="Название вопроса" />
 				</Form.Item>
 
-				<Form.List name="options">
+				<Form.List name="options" initialValue={[{}, {}]}>
 					{(fields, { add, remove }) => (
 						<>
-							{fields.map(({ key, name, ...restField }) => (
+							{fields.map(({ key, name, ...restField }, index) => (
 								<Flex vertical={true} key={key} gap={10}>
 									<Form.Item
 										{...restField}
 										name={[name, "text"]}
-										rules={[{ required: true, message: "Enter option text" }]}
+										label={"вариант"}
+										labelCol={{
+											style: {
+												display: "none"
+											}
+										}}
+										rules={[{ required: true }]}
+										style={{
+											marginBottom: 0
+										}}
 									>
-										<Input.TextArea placeholder="Вариант" />
+										<Input.TextArea autoSize={true} placeholder={`Вариант ${index + 1}`} />
 									</Form.Item>
-									<Flex justify="space-between" align="center">
+									<Flex
+										justify="space-between"
+										align="baseline"
+										style={{
+											marginBottom: 24
+										}}
+									>
 										<Form.Item
 											{...restField}
 											name={[name, "is_correct"]}
 											valuePropName="checked"
 											initialValue={false}
+											noStyle={true}
 										>
 											<Checkbox>Правильный</Checkbox>
 										</Form.Item>
-										<MinusCircleOutlined onClick={() => remove(name)} />
+										<div>
+											<MinusCircleOutlined
+												style={{
+													display: fields.length > 2 ? "block" : "none"
+												}}
+												onClick={() => remove(name)}
+											/>
+										</div>
 									</Flex>
 								</Flex>
 							))}

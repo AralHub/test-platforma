@@ -4,7 +4,7 @@ import {
 	HomeOutlined,
 	InstagramOutlined,
 	MenuOutlined,
-	SendOutlined,
+	OrderedListOutlined,
 	UserOutlined
 } from "@ant-design/icons"
 import {
@@ -21,6 +21,7 @@ import { useEffect, useState } from "react"
 import { useAuth, useToken } from "src/shared/hooks"
 import logo from "../shared/assets/logo.svg"
 import { ProfileAvatar } from "src/widgets/avatar"
+import { TelegramFilled } from "src/shared/ui/icons"
 
 export const Route = createFileRoute("/_layout")({
 	component: RouteComponent,
@@ -52,12 +53,12 @@ const itemsAdmin: MenuProps["items"] = [
 		key: "/users",
 		icon: <UserOutlined style={{ fontSize: 16 }} />,
 		label: "Результат"
+	},
+	{
+		key: "/statistic",
+		icon: <OrderedListOutlined style={{ fontSize: 16 }} />,
+		label: "Статистика"
 	}
-	// {
-	// 	key: "/statistic",
-	// 	icon: <OrderedListOutlined style={{ fontSize: 16 }} />,
-	// 	label: "Статистика"
-	// }
 	// {
 	// 	key: "/auth/register",
 	// 	icon: <FormOutlined style={{ fontSize: 16 }} />,
@@ -135,12 +136,12 @@ function RouteComponent() {
 						paddingRight: 15
 					}}
 				>
-					<Image src={logo} preview={false} width={100} />
+					<Image src={logo} preview={false} width={100} style={{ flexShrink: 0 }} />
 					<Flex vertical={true}>
-						<Title level={2} style={{ color: colorPrimary }}>
+						<Title level={2} style={{ color: colorPrimary, whiteSpace: "nowrap" }}>
 							AralHub
 						</Title>
-						<Title level={4} style={{ color: colorPrimary }}>
+						<Title level={4} style={{ color: colorPrimary, whiteSpace: "nowrap" }}>
 							academy
 						</Title>
 					</Flex>
@@ -225,7 +226,7 @@ function RouteComponent() {
 										rel="noopener noreferrer"
 										style={{ color: "#0088cc" }}
 									>
-										<SendOutlined style={{ fontSize: "22px" }} />
+										<TelegramFilled style={{ fontSize: "22px" }} />
 									</a>
 								</Flex>
 							</Space>

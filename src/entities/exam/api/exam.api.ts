@@ -1,5 +1,6 @@
 import { useCrudMutation, useCrudQuery } from "src/shared/api"
 import { examService } from "../model/exam.service"
+import { GetParams } from "src/shared/types"
 
 export const useCreateExam = () =>
 	useCrudMutation({
@@ -11,6 +12,13 @@ export const useGetExamList = () =>
 	useCrudQuery({
 		queryFn: examService.get,
 		queryKey: ["exam"]
+	})
+
+export const useGetStats = (id: string | number | undefined, params: GetParams) =>
+	useCrudQuery({
+		queryFn: () => examService.getStats(id, params),
+		queryKey: ["exam", "stats", ...Object.values(params)],
+		enabled: !!id
 	})
 
 export const useEditExam = () =>
@@ -61,6 +69,9 @@ export const useFinishTest = () =>
 			await queryClient.refetchQueries({
 				queryKey: ["users"]
 			})
+			await queryClient.refetchQueries({
+				queryKey: ["exam", "stats"]
+			})
 		}
 	})
 
@@ -73,6 +84,9 @@ export const useUpdateStatus = () =>
 			})
 			await queryClient.refetchQueries({
 				queryKey: ["subjects"]
+			})
+				await queryClient.refetchQueries({
+				queryKey: ["exam", "stats"]
 			})
 		}
 	})
