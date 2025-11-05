@@ -39,6 +39,8 @@ export const UsersPage = () => {
 			)
 		},
 		{
+			align: "center",
+			fixed: "right",
 			key: "total_score",
 			title: "Результат",
 			dataIndex: "total_score",
@@ -64,6 +66,9 @@ export const UsersPage = () => {
 				dataSource={data?.data}
 				rowKey={(rec) => rec.id}
 				pagination={false}
+				scroll={{
+					x: "auto"
+				}}
 			/>
 		</Flex>
 	)

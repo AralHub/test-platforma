@@ -21,6 +21,8 @@ export const TestPage = () => {
 			render: (time) => <>{time} минут</>
 		},
 		{
+			width: 100,
+			fixed: "right",
 			key: "options",
 			dataIndex: "options",
 			title: "",
@@ -60,6 +62,9 @@ export const TestPage = () => {
 					dataSource={data?.data}
 					rowKey={(rec) => rec.title}
 					pagination={false}
+					scroll={{
+						x: "auto"
+					}}
 				/>
 			</Flex>
 		</>

@@ -86,7 +86,7 @@ export const StatisticPage = () => {
 				loading={examsLoading || isLoading}
 				title={"Статистика по тестам"}
 				extra={
-					<Space>
+					<Space wrap={true}>
 						<Segmented
 							value={variant}
 							onChange={setVariant}

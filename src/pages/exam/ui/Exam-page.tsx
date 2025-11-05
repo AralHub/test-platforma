@@ -102,6 +102,9 @@ export const ExamPage = () => {
 					loading={isLoading}
 					dataSource={data?.data}
 					rowKey={(rec) => rec.title}
+					scroll={{
+						x: "auto"
+					}}
 					pagination={false}
 				/>
 			</Flex>

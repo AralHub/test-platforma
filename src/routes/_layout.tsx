@@ -15,8 +15,18 @@ import {
 	useNavigate
 } from "@tanstack/react-router"
 import type { MenuProps } from "antd"
-import { Divider, Flex, Image, Layout, Menu, Space, Typography } from "antd"
+import {
+	Divider,
+	Drawer,
+	Flex,
+	Image,
+	Layout,
+	Menu,
+	Space,
+	Typography
+} from "antd"
 import { useResponsive } from "antd-style"
+import type { FC, PropsWithChildren } from "react"
 import { useEffect, useState } from "react"
 import { useAuth, useToken } from "src/shared/hooks"
 import logo from "../shared/assets/logo.svg"
@@ -79,6 +89,54 @@ const items: MenuProps["items"] = [
 	}
 ]
 
+const SiderbarContainer: FC<
+	PropsWithChildren<{
+		collapsed: boolean
+		toggleCollapsed: () => void
+	}>
+> = ({ children, collapsed, toggleCollapsed }) => {
+	const { mobile } = useResponsive()
+	const {
+		token: { colorWhite }
+	} = useToken()
+
+	if (mobile)
+		return (
+			<Drawer
+				closable={false}
+				placement={"left"}
+				width={295}
+				open={collapsed}
+				onClose={toggleCollapsed}
+				styles={{
+					body: {
+						padding: 0
+					}
+				}}
+			>
+				{children}
+			</Drawer>
+		)
+
+	return (
+		<Sider
+			width={295}
+			collapsed={collapsed}
+			collapsedWidth={0}
+			style={{
+				backgroundColor: colorWhite,
+				height: "100vh",
+				position: "sticky",
+				left: 0,
+				top: 0,
+				bottom: 0
+			}}
+		>
+			{children}
+		</Sider>
+	)
+}
+
 function RouteComponent() {
 	const { mobile } = useResponsive()
 	const [collapsed, setCollapsed] = useState(false)
@@ -95,34 +153,15 @@ function RouteComponent() {
 
 	return (
 		<Layout hasSider={true}>
-			<Sider
-				width={295}
+			<SiderbarContainer
 				collapsed={collapsed}
-				collapsedWidth={0}
-				style={
-					mobile
-						? {
-								backgroundColor: colorWhite,
-								minHeight: "100vh",
-								overflow: "auto",
-								position: "fixed",
-								zIndex: 1
-							}
-						: {
-								backgroundColor: colorWhite,
-								height: "100vh",
-								position: "sticky",
-								left: 0,
-								top: 0,
-								bottom: 0
-							}
-				}
+				toggleCollapsed={() => setCollapsed((prev) => !prev)}
 			>
 				{mobile && (
 					<Flex
-						onClick={() => setCollapsed(true)}
+						onClick={() => setCollapsed(false)}
 						justify="flex-end"
-						style={{ padding: "20px" }}
+						style={{ padding: "20px", paddingBottom: 0 }}
 					>
 						<CloseOutlined style={{ fontSize: sizeXL }} />
 					</Flex>
@@ -136,12 +175,23 @@ function RouteComponent() {
 						paddingRight: 15
 					}}
 				>
-					<Image src={logo} preview={false} width={100} style={{ flexShrink: 0 }} />
+					<Image
+						src={logo}
+						preview={false}
+						width={100}
+						style={{ flexShrink: 0 }}
+					/>
 					<Flex vertical={true}>
-						<Title level={2} style={{ color: colorPrimary, whiteSpace: "nowrap" }}>
+						<Title
+							level={2}
+							style={{ color: colorPrimary, whiteSpace: "nowrap" }}
+						>
 							AralHub
 						</Title>
-						<Title level={4} style={{ color: colorPrimary, whiteSpace: "nowrap" }}>
+						<Title
+							level={4}
+							style={{ color: colorPrimary, whiteSpace: "nowrap" }}
+						>
 							academy
 						</Title>
 					</Flex>
@@ -149,7 +199,12 @@ function RouteComponent() {
 				<Divider style={{ margin: 0 }} />
 				<Menu
 					theme="dark"
-					onClick={(e) => navigate({ to: e.key })}
+					onClick={(e) => {
+						navigate({ to: e.key })
+						if (mobile) {
+							setCollapsed(false)
+						}
+					}}
 					mode="inline"
 					style={{
 						backgroundColor: colorWhite,
@@ -167,7 +222,7 @@ function RouteComponent() {
 						})) as MenuProps["items"]
 					}
 				/>
-			</Sider>
+			</SiderbarContainer>
 			<Layout
 				style={{
 					backgroundColor: colorBgContainer,
