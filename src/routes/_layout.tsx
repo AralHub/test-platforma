@@ -29,7 +29,6 @@ import { useResponsive } from "antd-style"
 import type { FC, PropsWithChildren } from "react"
 import { useEffect, useState } from "react"
 import { useAuth, useToken } from "src/shared/hooks"
-import logo from "../shared/assets/logo.svg"
 import { ProfileAvatar } from "src/widgets/avatar"
 import { TelegramFilled } from "src/shared/ui/icons"
 
@@ -176,7 +175,8 @@ function RouteComponent() {
 					}}
 				>
 					<Image
-						src={logo}
+						src={"/logo.png"}
+						fallback={"/public/logo.png"}
 						preview={false}
 						width={100}
 						style={{ flexShrink: 0 }}
@@ -186,14 +186,14 @@ function RouteComponent() {
 							level={2}
 							style={{ color: colorPrimary, whiteSpace: "nowrap" }}
 						>
-							AralHub
+							Prokuratura
 						</Title>
-						<Title
+						{/* <Title
 							level={4}
 							style={{ color: colorPrimary, whiteSpace: "nowrap" }}
 						>
 							academy
-						</Title>
+						</Title> */}
 					</Flex>
 				</Flex>
 				<Divider style={{ margin: 0 }} />
@@ -254,8 +254,13 @@ function RouteComponent() {
 						<Flex justify="space-between" align="center">
 							<Flex align="center" gap={20}>
 								<Text style={{ fontSize: "18px", color: colorPrimary }}>
-									<Image src={logo} preview={false} width={50} />
-									AralHub Academy
+									<Image
+										src={"/logo.png"}
+										fallback={"/public/logo.png"}
+										preview={false}
+										width={50}
+									/>
+									Prokuratura
 								</Text>
 							</Flex>
 							<Text type="secondary" style={{ fontSize: "13px" }}>

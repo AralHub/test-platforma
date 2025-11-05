@@ -6,6 +6,7 @@ export type Exam = {
 	is_active: boolean
 	total_score?: number
 	passed?: boolean
+	is_expired?: boolean
 }
 
 export type Stats = {

@@ -28,7 +28,7 @@ export const TestPage = () => {
 			title: "",
 			render: (_, res) => (
 				<Flex>
-					{res.passed ? (
+					{res.passed || res.is_expired ? (
 						<>Ваш результат: {res.total_score} правильных</>
 					) : (
 						<Button
