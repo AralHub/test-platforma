@@ -202,7 +202,7 @@ function RouteComponent() {
 					onClick={(e) => {
 						navigate({ to: e.key })
 						if (mobile) {
-							setCollapsed(false)
+							setCollapsed(true)
 						}
 					}}
 					mode="inline"

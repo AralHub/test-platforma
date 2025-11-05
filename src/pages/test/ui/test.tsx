@@ -8,7 +8,7 @@ import { TestResult } from "./test-result"
 import { useToken } from "src/shared/hooks"
 import { Timer } from "./timer"
 import { QuestionNav } from "./question-nav"
-import { useResponsive } from "antd-style"
+import { css, cx, useResponsive } from "antd-style"
 
 const { useApp } = App
 
@@ -78,6 +78,13 @@ export const Test = () => {
 				>
 					{questionList.map((item, index) => (
 						<Card
+							className={cx(css`
+								.ant-card-head-title {
+									text-overflow: clip;
+									white-space: normal;
+									padding: 12px 0;
+								}
+							`)}
 							title={
 								<span>
 									{index + 1}. {item.text}
