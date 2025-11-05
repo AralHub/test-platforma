@@ -1,0 +1,1 @@
+export { User as UserPage } from "./ui/user"

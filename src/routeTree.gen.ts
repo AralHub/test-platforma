@@ -23,6 +23,7 @@ import { Route as LayoutStatisticIndexImport } from "./routes/_layout/statistic/
 import { Route as LayoutExamIndexImport } from "./routes/_layout/exam/index"
 import { Route as AuthAuthLayoutRegisterImport } from "./routes/auth/_auth-layout/register"
 import { Route as AuthAuthLayoutLoginImport } from "./routes/auth/_auth-layout/login"
+import { Route as LayoutUsersUserIdImport } from "./routes/_layout/users/$userId"
 import { Route as LayoutExamExamidImport } from "./routes/_layout/exam/$exam_id"
 import { Route as LayoutTestTestIdIndexImport } from "./routes/_layout/test/$testId/index"
 
@@ -96,6 +97,12 @@ const AuthAuthLayoutLoginRoute = AuthAuthLayoutLoginImport.update({
   getParentRoute: () => AuthAuthLayoutRoute,
 } as any)
 
+const LayoutUsersUserIdRoute = LayoutUsersUserIdImport.update({
+  id: "/users/$userId",
+  path: "/users/$userId",
+  getParentRoute: () => LayoutRoute,
+} as any)
+
 const LayoutExamExamidRoute = LayoutExamExamidImport.update({
   id: "/exam/$exam_id",
   path: "/exam/$exam_id",
@@ -145,6 +152,13 @@ declare module "@tanstack/react-router" {
       path: "/exam/$exam_id"
       fullPath: "/exam/$exam_id"
       preLoaderRoute: typeof LayoutExamExamidImport
+      parentRoute: typeof LayoutImport
+    }
+    "/_layout/users/$userId": {
+      id: "/_layout/users/$userId"
+      path: "/users/$userId"
+      fullPath: "/users/$userId"
+      preLoaderRoute: typeof LayoutUsersUserIdImport
       parentRoute: typeof LayoutImport
     }
     "/auth/_auth-layout/login": {
@@ -211,6 +225,7 @@ declare module "@tanstack/react-router" {
 interface LayoutRouteChildren {
   LayoutIndexRoute: typeof LayoutIndexRoute
   LayoutExamExamidRoute: typeof LayoutExamExamidRoute
+  LayoutUsersUserIdRoute: typeof LayoutUsersUserIdRoute
   LayoutExamIndexRoute: typeof LayoutExamIndexRoute
   LayoutStatisticIndexRoute: typeof LayoutStatisticIndexRoute
   LayoutTestIndexRoute: typeof LayoutTestIndexRoute
@@ -221,6 +236,7 @@ interface LayoutRouteChildren {
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutIndexRoute: LayoutIndexRoute,
   LayoutExamExamidRoute: LayoutExamExamidRoute,
+  LayoutUsersUserIdRoute: LayoutUsersUserIdRoute,
   LayoutExamIndexRoute: LayoutExamIndexRoute,
   LayoutStatisticIndexRoute: LayoutStatisticIndexRoute,
   LayoutTestIndexRoute: LayoutTestIndexRoute,
@@ -262,6 +278,7 @@ export interface FileRoutesByFullPath {
   "/auth": typeof AuthAuthLayoutRouteWithChildren
   "/": typeof LayoutIndexRoute
   "/exam/$exam_id": typeof LayoutExamExamidRoute
+  "/users/$userId": typeof LayoutUsersUserIdRoute
   "/auth/login": typeof AuthAuthLayoutLoginRoute
   "/auth/register": typeof AuthAuthLayoutRegisterRoute
   "/exam": typeof LayoutExamIndexRoute
@@ -276,6 +293,7 @@ export interface FileRoutesByTo {
   "/auth": typeof AuthAuthLayoutIndexRoute
   "/": typeof LayoutIndexRoute
   "/exam/$exam_id": typeof LayoutExamExamidRoute
+  "/users/$userId": typeof LayoutUsersUserIdRoute
   "/auth/login": typeof AuthAuthLayoutLoginRoute
   "/auth/register": typeof AuthAuthLayoutRegisterRoute
   "/exam": typeof LayoutExamIndexRoute
@@ -292,6 +310,7 @@ export interface FileRoutesById {
   "/auth/_auth-layout": typeof AuthAuthLayoutRouteWithChildren
   "/_layout/": typeof LayoutIndexRoute
   "/_layout/exam/$exam_id": typeof LayoutExamExamidRoute
+  "/_layout/users/$userId": typeof LayoutUsersUserIdRoute
   "/auth/_auth-layout/login": typeof AuthAuthLayoutLoginRoute
   "/auth/_auth-layout/register": typeof AuthAuthLayoutRegisterRoute
   "/_layout/exam/": typeof LayoutExamIndexRoute
@@ -309,6 +328,7 @@ export interface FileRouteTypes {
     | "/auth"
     | "/"
     | "/exam/$exam_id"
+    | "/users/$userId"
     | "/auth/login"
     | "/auth/register"
     | "/exam"
@@ -322,6 +342,7 @@ export interface FileRouteTypes {
     | "/auth"
     | "/"
     | "/exam/$exam_id"
+    | "/users/$userId"
     | "/auth/login"
     | "/auth/register"
     | "/exam"
@@ -336,6 +357,7 @@ export interface FileRouteTypes {
     | "/auth/_auth-layout"
     | "/_layout/"
     | "/_layout/exam/$exam_id"
+    | "/_layout/users/$userId"
     | "/auth/_auth-layout/login"
     | "/auth/_auth-layout/register"
     | "/_layout/exam/"
@@ -376,6 +398,7 @@ export const routeTree = rootRoute
       "children": [
         "/_layout/",
         "/_layout/exam/$exam_id",
+        "/_layout/users/$userId",
         "/_layout/exam/",
         "/_layout/statistic/",
         "/_layout/test/",
@@ -404,6 +427,10 @@ export const routeTree = rootRoute
     },
     "/_layout/exam/$exam_id": {
       "filePath": "_layout/exam/$exam_id.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/users/$userId": {
+      "filePath": "_layout/users/$userId.tsx",
       "parent": "/_layout"
     },
     "/auth/_auth-layout/login": {

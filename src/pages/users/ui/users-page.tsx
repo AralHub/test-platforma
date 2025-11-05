@@ -1,5 +1,6 @@
+import { Link } from "@tanstack/react-router"
 import type { TableProps } from "antd"
-import { Flex, Table, Typography } from "antd"
+import { Button, Flex, Table, Typography } from "antd"
 import type { Users } from "src/entities/users"
 import { useGetUsersList } from "src/entities/users"
 
@@ -50,6 +51,23 @@ export const UsersPage = () => {
 						<div key={item.id}>{item.total_score} </div>
 					))}
 				</Flex>
+			)
+		},
+		{
+			width: 100,
+			fixed: "right",
+			key: "options",
+			dataIndex: "options",
+			title: "",
+			render: (_, res) => (
+				<Link
+					to={"/users/$userId"}
+					params={{
+						userId: `${res.id}`
+					}}
+				>
+					<Button type="primary">Результаты</Button>
+				</Link>
 			)
 		}
 	]

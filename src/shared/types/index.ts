@@ -17,6 +17,7 @@ export type GetParams = {
 	page_size?: number
 	search?: string
 	most_correct?: string | boolean | number
+	exam_id?: string | number
 }
 
 export type ParamId = number | string | null | undefined

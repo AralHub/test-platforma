@@ -1,11 +1,15 @@
 import type { ResponseSingleData } from "src/shared/api"
 import { api, type ResponseData } from "src/shared/api"
 import type { Exam, FinishForm, Start, TestResult, Stats } from "./exam.types"
-import { GetParams } from "src/shared/types"
+import type { GetParams, ParamId } from "src/shared/types"
 
 class ExamService {
 	get = async (): Promise<ResponseData<Exam>> => {
 		const response = await api.get("/admin/exams")
+		return response.data
+	}
+	getByUserId = async (id: ParamId): Promise<ResponseData<Exam>> => {
+		const response = await api.get(`/admin/users/${id}/passed_exams`)
 		return response.data
 	}
 	getSubjects = async (): Promise<ResponseData<Exam>> => {

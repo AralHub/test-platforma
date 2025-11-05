@@ -1,6 +1,6 @@
 import { useCrudMutation, useCrudQuery } from "src/shared/api"
 import { examService } from "../model/exam.service"
-import type { GetParams } from "src/shared/types"
+import type { GetParams, ParamId } from "src/shared/types"
 
 export const useCreateExam = () =>
 	useCrudMutation({
@@ -12,6 +12,12 @@ export const useGetExamList = () =>
 	useCrudQuery({
 		queryFn: examService.get,
 		queryKey: ["exam"]
+	})
+	
+export const useGetExamListByUserId = (id: ParamId) =>
+	useCrudQuery({
+		queryFn: () => examService.getByUserId(id),
+		queryKey: ["exam", "user", id]
 	})
 
 export const useGetStats = (id: string | number | undefined, params: GetParams) =>
