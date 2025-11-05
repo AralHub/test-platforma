@@ -46,6 +46,9 @@ export const useDeleteExam = () =>
 			await queryClient.refetchQueries({
 				queryKey: ["users"]
 			})
+			await queryClient.refetchQueries({
+				queryKey: ["exam"]
+			})
 		}
 	})
 
@@ -61,6 +64,9 @@ export const useStartTest = () =>
 			})
 			await queryClient.refetchQueries({
 				queryKey: ["questions"]
+			})
+			await queryClient.refetchQueries({
+				queryKey: ["exam"]
 			})
 		}
 	})
@@ -78,6 +84,9 @@ export const useFinishTest = () =>
 			await queryClient.refetchQueries({
 				queryKey: ["exam", "stats"]
 			})
+			await queryClient.refetchQueries({
+				queryKey: ["exam"]
+			})
 		}
 	})
 
@@ -93,6 +102,9 @@ export const useUpdateStatus = () =>
 			})
 				await queryClient.refetchQueries({
 				queryKey: ["exam", "stats"]
+			})
+			await queryClient.refetchQueries({
+				queryKey: ["exam"]
 			})
 		}
 	})
