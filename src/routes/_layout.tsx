@@ -183,10 +183,10 @@ function RouteComponent() {
 					/>
 					<Flex vertical={true}>
 						<Title
-							level={2}
+							level={3}
 							style={{ color: colorPrimary, whiteSpace: "nowrap" }}
 						>
-							Prokuratura
+							Прокуратура
 						</Title>
 						{/* <Title
 							level={4}
@@ -260,7 +260,7 @@ function RouteComponent() {
 										preview={false}
 										width={50}
 									/>
-									Prokuratura
+									Прокуратура
 								</Text>
 							</Flex>
 							<Text type="secondary" style={{ fontSize: "13px" }}>

@@ -17,7 +17,7 @@ const AntdProvider: FC<PropsWithChildren> = ({ children }) => {
 				theme={{
 					token: {
 						fontFamily: `Open Sans,${token.fontFamily}`,
-						colorPrimary: "#113A34",
+						colorPrimary: "#394869",
 						colorBgContainer: "#F4F7FE"
 					},
 					components: {
