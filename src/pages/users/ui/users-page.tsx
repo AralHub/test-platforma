@@ -41,7 +41,6 @@ export const UsersPage = () => {
 		},
 		{
 			align: "center",
-			fixed: "right",
 			key: "total_score",
 			title: "Результат",
 			dataIndex: "total_score",

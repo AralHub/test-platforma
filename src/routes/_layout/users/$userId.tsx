@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { Badge, Card, Flex, Select, Space, Spin } from "antd"
-import { useResponsive } from "antd-style"
+import { css, cx, useResponsive } from "antd-style"
 import { useToken } from "src/shared/hooks"
 import { useEffect, useRef, useState } from "react"
 import { QuestionNav } from "src/pages/test/ui/question-nav"
@@ -60,7 +60,7 @@ function RouteComponent() {
 	})
 	const { data: exams, isLoading: examsLoading } =
 		useGetExamListByUserId(userId)
-	
+
 	const handleClick = (key: string) => {
 		const ref = sectionRefs.current[key]
 		ref?.scrollIntoView({ behavior: "smooth", block: "start" })
@@ -74,8 +74,12 @@ function RouteComponent() {
 	}, [exams])
 	return (
 		<>
-			<Flex justify="space-between" style={{ padding: "20px 0px" }}>
-				<Title level={2}>
+			<Flex
+				justify="space-between"
+				style={{ padding: "20px 0px", rowGap: 8 }}
+				wrap={true}
+			>
+				<Title level={mobile ? 4 : 2}>
 					<ArrowLeftOutlined
 						style={{ marginRight: 20 }}
 						onClick={() => navigate({ to: "/users" })}
@@ -83,6 +87,13 @@ function RouteComponent() {
 					Результат: {isLoading ? "Загрузка..." : user?.data?.name}
 				</Title>
 				<Select
+					style={
+						mobile
+							? {
+									width: "100%"
+								}
+							: {}
+					}
 					placeholder={"Выберите предмет"}
 					loading={examsLoading}
 					value={exam}
@@ -117,6 +128,13 @@ function RouteComponent() {
 						>
 							{userAnswers?.data?.map((item, index) => (
 								<Card
+									className={cx(css`
+										.ant-card-head-title {
+											text-overflow: clip;
+											white-space: normal;
+											padding: 12px 0;
+										}
+									`)}
 									title={
 										<span>
 											{index + 1}. {item.question_text}

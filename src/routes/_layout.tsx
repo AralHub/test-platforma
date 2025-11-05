@@ -106,7 +106,7 @@ const SiderbarContainer: FC<
 				closable={false}
 				placement={"left"}
 				width={295}
-				open={collapsed}
+				open={!collapsed}
 				onClose={toggleCollapsed}
 				styles={{
 					body: {
