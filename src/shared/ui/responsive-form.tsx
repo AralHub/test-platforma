@@ -54,9 +54,9 @@ export const ResponsiveForm: FC<ResponsiveProps> = ({ children }) => {
 				vertical={true}
 				justify="center"
 				align="center"
-				style={{ width: "50%", backgroundColor: "#BEFFED", height: "100vh", overflow: "hidden" }}
+				style={{ width: "50%", backgroundColor: "#BEEDFF", height: "100vh", overflow: "hidden" }}
 			>
-				<Image width={imageWidth} src={img} preview={false} />
+				<Image width={imageWidth - 250} src={"/logo.png"} preview={false} />
 			</Flex>
 		</Flex>
 	)

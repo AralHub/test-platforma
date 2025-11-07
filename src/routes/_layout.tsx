@@ -264,7 +264,7 @@ function RouteComponent() {
 								</Text>
 							</Flex>
 							<Text type="secondary" style={{ fontSize: "13px" }}>
-								© {new Date().getFullYear()} AralHub Academy. Все права
+								© {new Date().getFullYear()} AralHub. Все права
 								защищены.
 							</Text>
 							<Space size="large">
