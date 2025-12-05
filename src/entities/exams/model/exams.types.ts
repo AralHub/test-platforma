@@ -7,6 +7,8 @@ export type Exam = {
 	total_score?: number
 	passed?: boolean
 	is_expired?: boolean
+	
+	user_attempt_uuid: string
 }
 
 export type ExamChange = {

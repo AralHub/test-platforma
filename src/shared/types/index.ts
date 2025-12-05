@@ -18,6 +18,7 @@ export type GetParams = {
 	search?: string
 	most_correct?: string | boolean | number
 	exam_id?: string | number
+	user_attempt_uuid?: string
 }
 
 export type ParamId = number | string | null | undefined

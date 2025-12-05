@@ -47,7 +47,7 @@ function RouteComponent() {
 	const {
 		token: { colorWhite }
 	} = useToken()
-	const [exam, setExam] = useState<number | string>()
+	const [exam, setExam] = useState<string>()
 
 	const navigate = Route.useNavigate()
 	const { data: user, isLoading } = useGetUsersById(userId)
@@ -56,7 +56,8 @@ function RouteComponent() {
 		isLoading: userAnswersLoading,
 		isFetching: userAnswersFetching
 	} = useGetUsersByIdAnswers(userId, {
-		exam_id: exam
+		exam_id: exam?.split("_")?.at(0),
+		user_attempt_uuid: exam?.split("_")?.at(1)
 	})
 	const { data: exams, isLoading: examsLoading } =
 		useGetExamsListByUserId(userId)
@@ -69,7 +70,7 @@ function RouteComponent() {
 	useEffect(() => {
 		if (exams && exams.data) {
 			const [current] = exams.data
-			setExam(current.id)
+			setExam(`${current?.id}_${current?.user_attempt_uuid}`)
 		}
 	}, [exams])
 	return (
@@ -102,9 +103,9 @@ function RouteComponent() {
 					value={exam}
 					onChange={setExam}
 					disabled={examsLoading}
-					options={exams?.data?.map((el) => ({
-						value: el.id,
-						label: el.title
+					options={exams?.data?.map((el, index) => ({
+						value: `${el?.id}_${el.user_attempt_uuid}`,
+						label: el.title + " (" + (index + 1) + ")"
 					}))}
 				/>
 			</Flex>
