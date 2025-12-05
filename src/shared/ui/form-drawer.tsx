@@ -53,6 +53,7 @@ const FormDrawer: FC<FormDrawerProps> = ({
 					paddingBlock: 16
 				}
 			}}
+			forceRender={true}
 			footer={
 				<Flex gap={8} justify={"end"}>
 					<Button onClick={onCloseDrawer}>Отмена</Button>

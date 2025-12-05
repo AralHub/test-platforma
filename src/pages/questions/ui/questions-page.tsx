@@ -1,6 +1,6 @@
 import { ArrowLeftOutlined, CameraOutlined } from "@ant-design/icons"
 import { useNavigate, useParams } from "@tanstack/react-router"
-import { Button, Card, Flex, Image, Tag, Typography, Upload } from "antd"
+import { Button, Card, Flex, Image, Space, Tag, Typography, Upload } from "antd"
 import {
 	useAddImage,
 	useDeleteQuestionByExam,
@@ -8,7 +8,7 @@ import {
 } from "src/entities/questions"
 import { QuestionsForm } from "src/features/questions"
 import { useToken } from "src/shared/hooks"
-import { AddButton, DeleteButton, EditButton } from "src/shared/ui"
+import { AddButton, DeleteButton, EditButton, ReloadButton } from "src/shared/ui"
 
 const { Title } = Typography
 
@@ -17,7 +17,7 @@ export const QuestionsPage = () => {
 	const {
 		token: { colorWhite }
 	} = useToken()
-	const { data: questions } = useGetAdminQuestions(examId)
+	const { data: questions, refetch, isFetching } = useGetAdminQuestions(examId)
 	const { mutate: deleteQuestion } = useDeleteQuestionByExam(examId)
 	const { mutate: addImage } = useAddImage()
 	const navigate = useNavigate()
@@ -33,7 +33,10 @@ export const QuestionsPage = () => {
 						/>
 						Вопросы
 					</Title>
-					<AddButton text="Добавить вопрос" />
+					<Space>
+						<AddButton text="Добавить вопрос" />
+						<ReloadButton onClick={() => refetch()} loading={isFetching} />
+					</Space>
 				</Flex>
 				{questions?.data?.map((item, index) => (
 					<Card

@@ -16,7 +16,10 @@ export const useGetAdminQuestions = (
 	useCrudQuery({
 		queryFn: () => questionsService.getAdmin(id, type),
 		queryKey: ["admin-questions", type, id],
-		enabled: !!id
+		enabled: !!id,
+		refetchInterval: (query) => {
+			return query.state.error ? false : 30_000
+		}
 	})
 
 export const useCreateQuestion = () =>
@@ -25,6 +28,14 @@ export const useCreateQuestion = () =>
 		invalidate: {
 			queryKey: ["admin-questions"]
 		}
+	})
+export const useCreateQuestionByExam = () =>
+	useCrudMutation({
+		mutationFn: questionsService.createByExam,
+		invalidate: {
+			queryKey: ["admin-questions"]
+		},
+		success: {}
 	})
 
 export const useAddImage = () =>

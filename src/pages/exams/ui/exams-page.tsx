@@ -1,7 +1,7 @@
 import { CheckOutlined, EyeOutlined, LockOutlined } from "@ant-design/icons"
-import { useNavigate } from "@tanstack/react-router"
+import { Link } from "@tanstack/react-router"
 import type { TableProps } from "antd"
-import { Button, Flex, Switch, Table, Tag, Typography } from "antd"
+import { Button, Flex, Space, Switch, Table, Tag, Typography } from "antd"
 import type { Exam } from "src/entities/exams"
 import {
 	useDeleteExams,
@@ -10,18 +10,22 @@ import {
 } from "src/entities/exams"
 import { ExamsForm } from "src/features/exams"
 import { useToken } from "src/shared/hooks"
-import { AddButton, DeleteButton, EditButton } from "src/shared/ui"
+import {
+	AddButton,
+	DeleteButton,
+	EditButton,
+	ReloadButton
+} from "src/shared/ui"
 
 const { Title } = Typography
 
 export const ExamsPage = () => {
-	const { data, isLoading } = useGetExamsList()
+	const { data, isLoading, isFetching, refetch } = useGetExamsList()
 	const {
 		token: { colorPrimary }
 	} = useToken()
 	const { mutate: deleteExam } = useDeleteExams()
 	const { mutate: updateStatus, isPending } = useUpdateStatus()
-	const navigate = useNavigate()
 
 	const columns: TableProps<Exam>["columns"] = [
 		{
@@ -70,19 +74,17 @@ export const ExamsPage = () => {
 						defaultChecked={res.is_active}
 						loading={isPending}
 					/>
+					<Link to={"/exams/$examId"} params={{ examId: String(res.id!) }}>
+						<Button
+							icon={
+								<EyeOutlined style={{ fontSize: 20, color: colorPrimary }} />
+							}
+						/>
+					</Link>
 					<EditButton params={res} />
 					<DeleteButton
 						data={res.title}
 						onConfirm={() => deleteExam(res.id!)}
-					/>
-					<Button
-						onClick={() =>
-							navigate({
-								to: "/exams/$examId",
-								params: { examId: String(res.id!) }
-							})
-						}
-						icon={<EyeOutlined style={{ fontSize: 20, color: colorPrimary }} />}
 					/>
 				</Flex>
 			)
@@ -94,7 +96,10 @@ export const ExamsPage = () => {
 			<Flex vertical={true}>
 				<Flex justify="space-between" style={{ padding: "20px 0px" }}>
 					<Title level={2}>Экзамены</Title>
-					<AddButton text="Добавить экзамен" />
+					<Space>
+						<AddButton text="Добавить экзамен" />
+						<ReloadButton loading={isFetching} onReload={refetch} />
+					</Space>
 				</Flex>
 				<Table
 					style={{ margin: "40px 0px" }}

@@ -42,6 +42,10 @@ class QuestionsService {
 		})
 		return response.data
 	}
+	createByExam = async ({ id, ...form }: QuestionCreate) => {
+		const response = await api.post(`/admin/exams/${id}/questions`, form)
+		return response.data
+	}
 	generate = async ({ id, ...form }: QuestionGenerate) => {
 		const response = await api.post(`/admin/questions/generate`, undefined, {
 			params: {

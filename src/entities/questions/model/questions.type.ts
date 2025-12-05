@@ -1,7 +1,9 @@
 export type QuestionCreate = {
-	id: string
+	id?: string | number
 	text: string
 	options: Variant[]
+	subject_id?: number
+	question_ids?: number[]
 }
 
 export type QuestionGenerate = {

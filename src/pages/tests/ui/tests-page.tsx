@@ -2,9 +2,10 @@ import { useNavigate } from "@tanstack/react-router"
 import { Button, Flex, Table, Typography, type TableProps } from "antd"
 import type { Exam } from "src/entities/exams"
 import { useGetExamsSubjects, useStartTest } from "src/entities/exams"
+import { ReloadButton } from "src/shared/ui"
 
 export const TestsPage = () => {
-	const { data, isLoading } = useGetExamsSubjects()
+	const { data, isLoading, isFetching, refetch } = useGetExamsSubjects()
 	const navigate = useNavigate()
 	const { mutate: startTest } = useStartTest()
 
@@ -54,6 +55,11 @@ export const TestsPage = () => {
 			<Flex vertical={true}>
 				<Flex justify="space-between" style={{ padding: "20px 0px" }}>
 					<Typography.Title level={2}>Тесты</Typography.Title>
+					<ReloadButton
+						loading={isFetching}
+						onReload={refetch}
+						children={"Обновить"}
+					/>
 				</Flex>
 				<Table
 					style={{ margin: "40px 0px" }}

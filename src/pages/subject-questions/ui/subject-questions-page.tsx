@@ -22,7 +22,12 @@ import {
 	SubjectQuestionsForm
 } from "src/features/subject-questions"
 import { useToken } from "src/shared/hooks"
-import { AddButton, DeleteButton, EditButton } from "src/shared/ui"
+import {
+	AddButton,
+	DeleteButton,
+	EditButton,
+	ReloadButton
+} from "src/shared/ui"
 
 const { Title } = Typography
 
@@ -37,7 +42,11 @@ export const SubjectQuestionsPage: FC = () => {
 		token: { colorWhite }
 	} = useToken()
 
-	const { data: questions } = useGetAdminQuestions(subjectId, "by_subject")
+	const {
+		data: questions,
+		isFetching,
+		refetch
+	} = useGetAdminQuestions(subjectId, "by_subject")
 
 	return (
 		<>
@@ -52,6 +61,7 @@ export const SubjectQuestionsPage: FC = () => {
 				<Space wrap={true}>
 					<SubjectGenerationButton />
 					<AddButton text="Добавить вопрос" />
+					<ReloadButton loading={isFetching} onReload={refetch} />
 				</Space>
 			</Flex>
 			{questions?.data?.length ? (

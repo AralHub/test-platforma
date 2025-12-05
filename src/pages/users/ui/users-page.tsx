@@ -3,11 +3,12 @@ import type { TableProps } from "antd"
 import { Button, Flex, Table, Typography } from "antd"
 import type { Users } from "src/entities/users"
 import { useGetUsersList } from "src/entities/users"
+import { ReloadButton } from "src/shared/ui"
 
 const { Title } = Typography
 
 export const UsersPage = () => {
-	const { data, isLoading } = useGetUsersList()
+	const { data, isLoading, isFetching, refetch } = useGetUsersList()
 
 	const columns: TableProps<Users>["columns"] = [
 		{
@@ -75,6 +76,11 @@ export const UsersPage = () => {
 		<Flex vertical={true}>
 			<Flex justify="space-between" style={{ padding: "20px 0px" }}>
 				<Title level={2}>Результаты</Title>
+				<ReloadButton
+					loading={isFetching}
+					onReload={refetch}
+					children={"Обновить"}
+				/>
 			</Flex>
 			<Table
 				style={{ margin: "40px 0px" }}

@@ -21,9 +21,8 @@ export const QuestionNav: React.FC<QuestionNavProps> = ({
 				<Flex
 					gap={10}
 					wrap={true}
-					justify={"center"}
 					style={{
-						maxWidth: 420
+						width: 200 + 40
 					}}
 				>
 					{questionIds.map((id, index) => (

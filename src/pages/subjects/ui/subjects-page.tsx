@@ -9,12 +9,22 @@ import {
 	useGetSubjectsQuery
 } from "src/entities/subjects"
 import { SubjectsForm } from "src/features/subjects"
-import { AddButton, DeleteButton, EditButton } from "src/shared/ui"
+import {
+	AddButton,
+	DeleteButton,
+	EditButton,
+	ReloadButton
+} from "src/shared/ui"
 
 const { Title } = Typography
 
 export const SubjectsPage: FC = () => {
-	const { data: subjects, isLoading, isFetching } = useGetSubjectsQuery()
+	const {
+		data: subjects,
+		isLoading,
+		isFetching,
+		refetch
+	} = useGetSubjectsQuery()
 
 	const { mutate: deleteSubject } = useDeleteSubjectsMutation()
 
@@ -65,7 +75,10 @@ export const SubjectsPage: FC = () => {
 		<>
 			<Flex justify="space-between" style={{ padding: "20px 0px" }}>
 				<Title level={2}>Предметы</Title>
-				<AddButton text="Добавить предмет" />
+				<Space>
+					<AddButton text="Добавить предмет" />
+					<ReloadButton loading={isFetching} onReload={refetch} />
+				</Space>
 			</Flex>
 			<Table
 				dataSource={subjects?.data}

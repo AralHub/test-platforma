@@ -126,7 +126,7 @@ function RouteComponent() {
 							vertical={true}
 							gap={16}
 							style={{
-								width: mobile ? "100%" : "60%"
+								width: "100%"
 							}}
 						>
 							{userAnswers?.data?.map((item, index) => (
