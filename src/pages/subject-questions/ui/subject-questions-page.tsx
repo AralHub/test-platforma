@@ -87,7 +87,7 @@ export const SubjectQuestionsPage: FC = () => {
 									</Upload>
 									<DeleteButton
 										data={item.text}
-										onClick={() => deleteQuestion(String(item.id))}
+										onConfirm={() => deleteQuestion(String(item.id))}
 									/>
 								</Flex>
 							</Flex>
