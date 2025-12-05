@@ -106,7 +106,11 @@ export const SubjectQuestionsPage: FC = () => {
 						<Flex vertical={true} gap={10} style={{ marginTop: 20 }}>
 							{item.options.map((question) => (
 								<Tag
-									style={{ padding: "10px", borderRadius: 5 }}
+									style={{
+										padding: "10px",
+										borderRadius: 5,
+										whiteSpace: "wrap"
+									}}
 									key={question.text}
 								>
 									{question.text}

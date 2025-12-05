@@ -40,8 +40,14 @@ export const QuestionsPage = () => {
 						key={item.id}
 						style={{ backgroundColor: colorWhite, marginTop: 20 }}
 						title={
-							<Flex justify="space-between" align="center">
-								<Flex gap={10}>
+							<Flex justify="space-between" align="center" gap={16}>
+								<Flex
+									gap={10}
+									style={{
+										whiteSpace: "wrap",
+										paddingBlock: 8
+									}}
+								>
 									<span>{index + 1}.</span>
 									{item.text}
 								</Flex>
@@ -61,7 +67,7 @@ export const QuestionsPage = () => {
 									</Upload>
 									<DeleteButton
 										data={item.text}
-										onClick={() => deleteQuestion(String(item.id))}
+										onConfirm={() => deleteQuestion(String(item.id))}
 									/>
 								</Flex>
 							</Flex>
@@ -80,7 +86,11 @@ export const QuestionsPage = () => {
 						<Flex vertical={true} gap={10} style={{ marginTop: 20 }}>
 							{item.options.map((question) => (
 								<Tag
-									style={{ padding: "10px", borderRadius: 5 }}
+									style={{
+										padding: "10px",
+										borderRadius: 5,
+										whiteSpace: "wrap"
+									}}
 									key={question.text}
 								>
 									{question.text}

@@ -29,7 +29,7 @@ class QuestionsService {
 		const imageFormData = new FormData()
 		imageFormData.append("image", image)
 		const response = await api.put(
-			`/admin/exams/questions/${question_id}/image`,
+			`/admin/questions/${question_id}/image`,
 			imageFormData
 		)
 		return response.data
@@ -52,7 +52,7 @@ class QuestionsService {
 		return response.data
 	}
 	edit = async ({ id, ...form }: QuestionCreate) => {
-		const response = await api.put(`/admin/exams/questions/${id}`, form)
+		const response = await api.put(`/admin/questions/${id}`, form)
 		return response.data
 	}
 	delete = async (id: string) => {
