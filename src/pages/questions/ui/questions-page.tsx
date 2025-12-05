@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "@tanstack/react-router"
 import { Button, Card, Flex, Image, Tag, Typography, Upload } from "antd"
 import {
 	useAddImage,
-	useDeleteQuestion,
+	useDeleteQuestionByExam,
 	useGetAdminQuestions
 } from "src/entities/questions"
 import { QuestionsForm } from "src/features/questions"
@@ -18,7 +18,7 @@ export const QuestionsPage = () => {
 		token: { colorWhite }
 	} = useToken()
 	const { data: questions } = useGetAdminQuestions(examId)
-	const { mutate: deleteQuestion } = useDeleteQuestion()
+	const { mutate: deleteQuestion } = useDeleteQuestionByExam(examId)
 	const { mutate: addImage } = useAddImage()
 	const navigate = useNavigate()
 

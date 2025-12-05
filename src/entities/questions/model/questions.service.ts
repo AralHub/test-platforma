@@ -55,8 +55,12 @@ class QuestionsService {
 		const response = await api.put(`/admin/questions/${id}`, form)
 		return response.data
 	}
+	deleteByExams = async (examId: ParamId, id: ParamId) => {
+		const response = await api.delete(`/admin/exams/${examId}/questions/${id}`)
+		return response.data
+	}
 	delete = async (id: string) => {
-		const response = await api.delete(`/admin/exams/questions/${id}`)
+		const response = await api.delete(`/admin/questions/${id}`)
 		return response.data
 	}
 }

@@ -27,6 +27,12 @@ export const useCreateQuestion = () =>
 		}
 	})
 
+export const useAddImage = () =>
+	useCrudMutation({
+		mutationFn: questionsService.addImage,
+		invalidate: { queryKey: ["admin-questions"] }
+	})
+
 export const useGenerateQuestion = () =>
 	useCrudMutation({
 		mutationFn: questionsService.generate,
@@ -44,14 +50,14 @@ export const useEditQuestion = () =>
 		invalidate: { queryKey: ["admin-questions"] }
 	})
 
-export const useDeleteQuestion = () =>
+export const useDeleteQuestionByExam = (examId: ParamId) =>
 	useCrudMutation({
-		mutationFn: questionsService.delete,
+		mutationFn: (id: ParamId) => questionsService.deleteByExams(examId, id),
 		invalidate: { queryKey: ["admin-questions"] }
 	})
 
-export const useAddImage = () =>
+export const useDeleteQuestion = () =>
 	useCrudMutation({
-		mutationFn: questionsService.addImage,
+		mutationFn: questionsService.delete,
 		invalidate: { queryKey: ["admin-questions"] }
 	})
