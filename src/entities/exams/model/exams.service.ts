@@ -13,10 +13,9 @@ class ExamsService {
 		return response.data
 	}
 	getStats = async (
-		id: number | string | undefined,
-		params: GetParams
+		params: GetParams = {}
 	): Promise<ResponseData<Stats>> => {
-		const response = await api.get(`/admin/exams/${id}/stats`, { params })
+		const response = await api.get(`/admin/exams/analytics`, { params })
 		return response.data
 	}
 	getExams = async (): Promise<ResponseData<Exam>> => {

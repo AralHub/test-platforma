@@ -7,7 +7,7 @@ export type Exam = {
 	total_score?: number
 	passed?: boolean
 	is_expired?: boolean
-	
+
 	user_attempt_uuid: string
 }
 
@@ -21,10 +21,15 @@ export type ExamChange = {
 }
 
 export type Stats = {
-	question_id: number
-	total_responses: number
-	count: number
-	percent: number
+	user_id: number
+	user_name: string
+	total_attempts: number
+	avg_score_percentage: number
+	total_correct_answers: number
+	total_wrong_answers: number
+	total_questions_faced: number
+	unanswered_questions: number
+	avg_correct_percentage: number
 }
 
 export type Start = {

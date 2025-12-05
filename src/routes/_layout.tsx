@@ -1,5 +1,5 @@
 import {
-	// BarChartOutlined,
+	BarChartOutlined,
 	BookOutlined,
 	CloseOutlined,
 	HomeOutlined,
@@ -57,12 +57,12 @@ const itemsAdmin: MenuProps["items"] = [
 		key: "/users",
 		icon: <UserOutlined style={{ fontSize: 16 }} />,
 		label: "Результаты"
+	},
+	{
+		key: "/statistics",
+		icon: <BarChartOutlined style={{ fontSize: 16 }} />,
+		label: "Статистика",
 	}
-	// {
-	// 	key: "/statistics",
-	// 	icon: <BarChartOutlined style={{ fontSize: 16 }} />,
-	// 	label: "Статистика",
-	// }
 	// {
 	// 	key: "/auth/register",
 	// 	icon: <FormOutlined style={{ fontSize: 16 }} />,

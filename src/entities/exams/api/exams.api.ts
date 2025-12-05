@@ -21,13 +21,11 @@ export const useGetExamsListByUserId = (id: ParamId) =>
 	})
 
 export const useGetExamsStats = (
-	id: string | number | undefined,
-	params: GetParams
+	params: GetParams = {}
 ) =>
 	useCrudQuery({
-		queryFn: () => examsService.getStats(id, params),
-		queryKey: ["exams", "stats", id, ...Object.values(params)],
-		enabled: !!id
+		queryFn: () => examsService.getStats(params),
+		queryKey: ["exams", "stats", ...Object.values(params)],
 	})
 
 export const useEditExams = () =>
