@@ -1,8 +1,8 @@
 import {
+	// BarChartOutlined,
 	BookOutlined,
 	CloseOutlined,
 	HomeOutlined,
-	InstagramOutlined,
 	MenuOutlined,
 	OrderedListOutlined,
 	UserOutlined
@@ -15,22 +15,12 @@ import {
 	useNavigate
 } from "@tanstack/react-router"
 import type { MenuProps } from "antd"
-import {
-	Divider,
-	Drawer,
-	Flex,
-	Image,
-	Layout,
-	Menu,
-	Space,
-	Typography
-} from "antd"
+import { Divider, Drawer, Flex, Image, Layout, Menu, Typography } from "antd"
 import { useResponsive } from "antd-style"
 import type { FC, PropsWithChildren } from "react"
 import { useEffect, useState } from "react"
 import { useAuth, useToken } from "src/shared/hooks"
 import { ProfileAvatar } from "src/widgets/avatar"
-import { TelegramFilled } from "src/shared/ui/icons"
 
 export const Route = createFileRoute("/_layout")({
 	component: RouteComponent,
@@ -44,30 +34,35 @@ export const Route = createFileRoute("/_layout")({
 	}
 })
 
-const { Title, Text } = Typography
-const { Header, Content, Footer, Sider } = Layout
+const { Title } = Typography
+const { Header, Content, Sider } = Layout
 
 const itemsAdmin: MenuProps["items"] = [
 	{
-		key: "/test",
+		key: "/tests",
 		icon: <HomeOutlined style={{ fontSize: 16 }} />,
-		label: "Тест"
+		label: "Тесты"
 	},
 	{
-		key: "/exam",
+		key: "/exams",
+		icon: <OrderedListOutlined style={{ fontSize: 16 }} />,
+		label: "Экзамены"
+	},
+	{
+		key: "/subjects",
 		icon: <BookOutlined style={{ fontSize: 16 }} />,
-		label: "Предмет"
+		label: "Предметы"
 	},
 	{
 		key: "/users",
 		icon: <UserOutlined style={{ fontSize: 16 }} />,
-		label: "Результат"
-	},
-	{
-		key: "/statistic",
-		icon: <OrderedListOutlined style={{ fontSize: 16 }} />,
-		label: "Статистика"
+		label: "Результаты"
 	}
+	// {
+	// 	key: "/statistics",
+	// 	icon: <BarChartOutlined style={{ fontSize: 16 }} />,
+	// 	label: "Статистика",
+	// }
 	// {
 	// 	key: "/auth/register",
 	// 	icon: <FormOutlined style={{ fontSize: 16 }} />,
@@ -82,7 +77,7 @@ const itemsAdmin: MenuProps["items"] = [
 
 const items: MenuProps["items"] = [
 	{
-		key: "/test",
+		key: "/tests",
 		icon: <HomeOutlined style={{ fontSize: 16 }} />,
 		label: "Тесты"
 	}
@@ -140,7 +135,7 @@ function RouteComponent() {
 	const { mobile } = useResponsive()
 	const [collapsed, setCollapsed] = useState(false)
 	const {
-		token: { colorBgContainer, colorWhite, colorPrimary, sizeMD, sizeXL }
+		token: { colorWhite, colorPrimary, sizeMD, sizeXL }
 	} = useToken()
 	const navigate = useNavigate()
 	const { pathname } = useLocation()
@@ -210,9 +205,12 @@ function RouteComponent() {
 						backgroundColor: colorWhite,
 						margin: "20px 0px 80px",
 						padding: "8px 36px",
-						fontSize: 16
+						fontSize: 16,
+						overflowY: "auto",
+						height: "calc(100vh - 168px - 40px)",
+						scrollbarWidth: "thin"
 					}}
-					defaultSelectedKeys={[pathname]}
+					selectedKeys={[pathname]}
 					items={
 						(role === "admin" ? itemsAdmin : items)?.map((el) => ({
 							...el,
@@ -225,7 +223,7 @@ function RouteComponent() {
 			</SiderbarContainer>
 			<Layout
 				style={{
-					backgroundColor: colorBgContainer,
+					// backgroundColor: colorBgContainer,
 					minHeight: "100vh",
 					paddingLeft: 30,
 					paddingRight: 24
@@ -247,52 +245,10 @@ function RouteComponent() {
 					</Flex>
 				</Header>
 				<Content>
-					<Outlet />
+					<Flex vertical={true} gap={16}>
+						<Outlet />
+					</Flex>
 				</Content>
-				{!mobile && (
-					<Footer style={{ padding: "10px 0px", backgroundColor: "inherit" }}>
-						<Flex justify="space-between" align="center">
-							<Flex align="center" gap={20}>
-								<Text style={{ fontSize: "18px", color: colorPrimary }}>
-									<Image
-										src={"/logo.png"}
-										fallback={"/public/logo.png"}
-										preview={false}
-										width={50}
-									/>
-									Прокуратура
-								</Text>
-							</Flex>
-							<Text type="secondary" style={{ fontSize: "13px" }}>
-								© {new Date().getFullYear()} AralHub. Все права
-								защищены.
-							</Text>
-							<Space size="large">
-								<Title level={5}>
-									<Text type="secondary">Телефон: +998913803514</Text>
-								</Title>
-								<Flex gap={10}>
-									<a
-										href="https://instagram.com/aralhub"
-										target="_blank"
-										rel="noopener noreferrer"
-										style={{ color: "#E1306C" }}
-									>
-										<InstagramOutlined style={{ fontSize: "22px" }} />
-									</a>
-									<a
-										href="https://t.me/aralhub"
-										target="_blank"
-										rel="noopener noreferrer"
-										style={{ color: "#0088cc" }}
-									>
-										<TelegramFilled style={{ fontSize: "22px" }} />
-									</a>
-								</Flex>
-							</Space>
-						</Flex>
-					</Footer>
-				)}
 			</Layout>
 		</Layout>
 	)

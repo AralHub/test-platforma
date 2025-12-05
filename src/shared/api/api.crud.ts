@@ -1,12 +1,15 @@
 import type { QueryClient, QueryKey } from "@tanstack/query-core"
+import type {
+	UseQueryResult,
+	InvalidateQueryFilters,
+	UseMutationOptions,
+	UseQueryOptions
+} from "@tanstack/react-query"
 import {
-	type InvalidateQueryFilters,
 	keepPreviousData,
 	useMutation,
-	type UseMutationOptions,
 	useQuery,
 	useQueryClient,
-	type UseQueryOptions
 } from "@tanstack/react-query"
 import { useRouter } from "@tanstack/react-router"
 import { useMessage } from "src/shared/hooks"
@@ -24,36 +27,52 @@ type ErrorRedirect = {
 }
 
 interface UseCrudQueryOptions<
-	TQueryFnData,
-	TError extends ResponseError,
-	TData,
+	TQueryFnData = unknown,
+	TError extends ResponseError = ResponseError,
+	TData = TQueryFnData,
 	TQueryKey extends QueryKey = QueryKey
 > extends Omit<
 		UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
 		"throwOnError"
 	> {
-	onError?: () => void
+	onError?: (e: TError) => void
 	error?: ErrorMessage
 	renderError?: (error: TError) => ErrorMessage
 	errorRedirect?: ErrorRedirect
 }
 
 export const useCrudQuery = <
-	TQueryFnData,
-	TError extends ResponseError,
+	TQueryFnData = unknown,
+	TError extends ResponseError = ResponseError,
 	TData = TQueryFnData,
 	TQueryKey extends QueryKey = QueryKey
 >(
 	options: UseCrudQueryOptions<TQueryFnData, TError, TData, TQueryKey>
-) => {
-	const { onError, errorRedirect, ...queryOptions } = options
+): UseQueryResult<TData, TError> => {
+	const { onError, errorRedirect, renderError, error, ...queryOptions } =
+		options
+	const { message } = useMessage()
 	const { navigate } = useRouter()
 
 	return useQuery<TQueryFnData, TError, TData, TQueryKey>({
 		placeholderData: keepPreviousData,
-		throwOnError: (e) => {
-			onError?.()
+		throwOnError: (e: TError) => {
+			onError?.(e)
 			if (errorRedirect) navigate(errorRedirect)
+			const customError = renderError?.(e) ||
+				error || {
+					description:
+						e.response?.data?.message ||
+						(typeof e.response?.data?.detail === "string"
+							? e.response?.data?.detail
+							: e.message)
+				}
+			if (customError) {
+				message.error({
+					message: "Ошибка",
+					...customError
+				})
+			}
 			throw e
 		},
 		...queryOptions
@@ -121,14 +140,13 @@ export const useCrudMutation = <
 			onSuccess?.(data, ...args)
 		},
 		onError: (e, ...args) => {
-			onError?.(e, ...args)
 			const customError = renderError?.(e) ||
 				error || {
 					description:
 						e.response?.data?.message ||
-						typeof e.response?.data?.detail === "string"
+						(typeof e.response?.data?.detail === "string"
 							? e.response?.data?.detail
-							: e.message
+							: e.message)
 				}
 			if (customError) {
 				message.error({
@@ -136,6 +154,7 @@ export const useCrudMutation = <
 					...customError
 				})
 			}
+			onError?.(e, ...args)
 		},
 		...mutationOptions
 	})

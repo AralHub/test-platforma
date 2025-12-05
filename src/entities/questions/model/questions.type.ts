@@ -4,6 +4,11 @@ export type QuestionCreate = {
 	options: Variant[]
 }
 
+export type QuestionGenerate = {
+	id?: string | number
+	count: number
+}
+
 export type Variant = {
 	id?: number
 	text: string

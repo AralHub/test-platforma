@@ -74,7 +74,7 @@ export const UsersPage = () => {
 	return (
 		<Flex vertical={true}>
 			<Flex justify="space-between" style={{ padding: "20px 0px" }}>
-				<Title level={2}>Результат</Title>
+				<Title level={2}>Результаты</Title>
 			</Flex>
 			<Table
 				style={{ margin: "40px 0px" }}

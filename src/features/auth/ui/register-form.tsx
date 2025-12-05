@@ -1,7 +1,7 @@
 import { PhoneOutlined } from "@ant-design/icons"
 import type { FormProps } from "antd"
-import { Input, Form, Divider, Button, App } from "antd"
-import { formatFormPhone } from "src/shared/utils"
+import { Input, Form, Divider, Button, App, InputNumber } from "antd"
+import { formatFormPhone, formatInputPhone } from "src/shared/utils"
 import type { RegisterFormType } from "../model/types"
 import { useRegisterMutation } from "../api/api"
 import { VerifyForm } from "./verify-form"
@@ -70,9 +70,14 @@ export const RegisterForm = () => {
 					name={"phone_number"}
 					rules={[{ required: true }]}
 				>
-					<Input
+					<InputNumber
 						addonBefore={"+998"}
 						placeholder={"Телефон номер"}
+						formatter={formatInputPhone}
+						stringMode={true}
+						maxLength={12}
+						controls={false}
+						keyboard={false}
 						suffix={<PhoneOutlined />}
 					/>
 				</Form.Item>

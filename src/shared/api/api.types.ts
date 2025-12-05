@@ -16,6 +16,7 @@ export type Response<T> = {
 
 export type ResponseData<T> = {
 	data: T[]
+	total: number
 }
 
 export type ResponseSingleData<T> = {

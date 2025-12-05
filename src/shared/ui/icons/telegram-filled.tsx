@@ -1,12 +1,12 @@
 import Icon from "@ant-design/icons"
-import { GetProps } from "antd"
+import type { GetProps } from "antd"
 import type { FC, SVGProps } from "react"
 
 const TelegramSvg = (props: SVGProps<SVGSVGElement>) => (
 	<svg
 		stroke="currentColor"
 		fill="currentColor"
-		stroke-width="0"
+		strokeWidth="0"
 		viewBox="0 0 448 512"
 		height="1em"
 		width="1em"
@@ -18,9 +18,7 @@ const TelegramSvg = (props: SVGProps<SVGSVGElement>) => (
 )
 
 const TelegramFilled: FC<GetProps<typeof Icon>> = (props) => {
-	return (
-		<Icon component={TelegramSvg} {...props}/>
-	)
+	return <Icon component={TelegramSvg} {...props} />
 }
 
 export { TelegramFilled }

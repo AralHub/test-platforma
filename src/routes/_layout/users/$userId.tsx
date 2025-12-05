@@ -3,11 +3,11 @@ import { Badge, Card, Flex, Select, Space, Spin } from "antd"
 import { css, cx, useResponsive } from "antd-style"
 import { useToken } from "src/shared/hooks"
 import { useEffect, useRef, useState } from "react"
-import { QuestionNav } from "src/pages/test/ui/question-nav"
+import { QuestionNav } from "src/pages/tests/ui/question-nav"
 import Title from "antd/es/typography/Title"
 import { useGetUsersById, useGetUsersByIdAnswers } from "src/entities/users"
 import { ArrowLeftOutlined } from "@ant-design/icons"
-import { useGetExamListByUserId } from "src/entities/exam"
+import { useGetExamsListByUserId } from "src/entities/exams"
 
 export const Route = createFileRoute("/_layout/users/$userId")({
 	component: RouteComponent
@@ -59,7 +59,7 @@ function RouteComponent() {
 		exam_id: exam
 	})
 	const { data: exams, isLoading: examsLoading } =
-		useGetExamListByUserId(userId)
+		useGetExamsListByUserId(userId)
 
 	const handleClick = (key: string) => {
 		const ref = sectionRefs.current[key]
@@ -87,12 +87,15 @@ function RouteComponent() {
 					Результат: {isLoading ? "Загрузка..." : user?.data?.name}
 				</Title>
 				<Select
+					size={"large"}
 					style={
 						mobile
 							? {
 									width: "100%"
 								}
-							: {}
+							: {
+									width: "50%"
+								}
 					}
 					placeholder={"Выберите предмет"}
 					loading={examsLoading}

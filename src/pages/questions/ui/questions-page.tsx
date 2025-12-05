@@ -13,11 +13,11 @@ import { AddButton, DeleteButton, EditButton } from "src/shared/ui"
 const { Title } = Typography
 
 export const QuestionsPage = () => {
-	const { exam_id } = useParams({ strict: false })
+	const { examId } = useParams({ strict: false })
 	const {
 		token: { colorWhite }
 	} = useToken()
-	const { data } = useGetAdminQuestions(exam_id)
+	const { data: questions } = useGetAdminQuestions(examId)
 	const { mutate: deleteQuestion } = useDeleteQuestion()
 	const { mutate: addImage } = useAddImage()
 	const navigate = useNavigate()
@@ -29,13 +29,13 @@ export const QuestionsPage = () => {
 					<Title level={2}>
 						<ArrowLeftOutlined
 							style={{ marginRight: 20 }}
-							onClick={() => navigate({ to: "/exam" })}
+							onClick={() => navigate({ to: "/exams" })}
 						/>
 						Вопросы
 					</Title>
 					<AddButton text="Добавить вопрос" />
 				</Flex>
-				{data?.data?.map((item, index) => (
+				{questions?.data?.map((item, index) => (
 					<Card
 						key={item.id}
 						style={{ backgroundColor: colorWhite, marginTop: 20 }}

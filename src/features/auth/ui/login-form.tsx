@@ -1,10 +1,10 @@
 import { PhoneOutlined } from "@ant-design/icons"
 import { Link, useNavigate } from "@tanstack/react-router"
 import type { FormProps } from "antd"
-import { Input, Form, Divider, Button } from "antd"
+import { Input, Form, Divider, Button, InputNumber } from "antd"
 import { useEffect } from "react"
 import { useAuth, useToken } from "src/shared/hooks"
-import { formatFormPhone } from "src/shared/utils"
+import { formatFormPhone, formatInputPhone } from "src/shared/utils"
 import type { LoginFormType } from "../model/types"
 import { useLoginMutation } from "../api/api"
 
@@ -34,7 +34,7 @@ export const LoginForm = () => {
 	useEffect(() => {
 		if (isSuccess && loginData?.data) {
 			auth.login(loginData.data)
-			navigate({ to: "/test", replace: true })
+			navigate({ to: "/tests", replace: true })
 		}
 	}, [auth, isSuccess, loginData?.data, navigate])
 
@@ -54,9 +54,14 @@ export const LoginForm = () => {
 				name={"phone_number"}
 				rules={[{ required: true }]}
 			>
-				<Input
+				<InputNumber
 					addonBefore={"+998"}
 					placeholder={"Телефон номер"}
+					formatter={formatInputPhone}
+					stringMode={true}
+					maxLength={12}
+					controls={false}
+					keyboard={false}
 					suffix={<PhoneOutlined />}
 				/>
 			</Form.Item>

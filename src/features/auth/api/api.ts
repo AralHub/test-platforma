@@ -24,6 +24,9 @@ export const useLoginMutation = () => {
 		mutationFn: authService.login,
 		invalidate: {
 			queryKey: ["auth"]
+		},
+		success: {
+			description: "Вы успешно вошли в систему"
 		}
 	})
 }
@@ -51,12 +54,15 @@ export const useGetMeQuery = () => {
 export const useLogoutMutation = () => {
 	// const queryClient = useQueryClient()
 	return useCrudMutation({
-		mutationFn: authService.logout
+		mutationFn: authService.logout,
 		// onSuccess: () => {
 		// 	queryClient.removeQueries({
 		// 		queryKey: ["auth"],
 		// 		exact: true
 		// 	})
 		// }
+		success: {
+			description: "Вы успешно вышли из систему"
+		}
 	})
 }

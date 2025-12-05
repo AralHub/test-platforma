@@ -1,17 +1,21 @@
 import { useCrudMutation, useCrudQuery } from "src/shared/api"
 import { questionsService } from ".."
+import type { ParamId } from "src/shared/types"
 
-export const useGetQuestionsList = (id: string | undefined) =>
+export const useGetQuestionsList = (id: ParamId) =>
 	useCrudQuery({
 		queryFn: () => questionsService.get(id),
 		queryKey: ["questions", id],
 		enabled: !!id
 	})
 
-export const useGetAdminQuestions = (id: string | undefined) =>
+export const useGetAdminQuestions = (
+	id: ParamId,
+	type: "by_subject" | "by_exam" = "by_exam"
+) =>
 	useCrudQuery({
-		queryFn: () => questionsService.getAdmin(id),
-		queryKey: ["admin-questions", id],
+		queryFn: () => questionsService.getAdmin(id, type),
+		queryKey: ["admin-questions", type, id],
 		enabled: !!id
 	})
 
@@ -20,6 +24,17 @@ export const useCreateQuestion = () =>
 		mutationFn: questionsService.create,
 		invalidate: {
 			queryKey: ["admin-questions"]
+		}
+	})
+
+export const useGenerateQuestion = () =>
+	useCrudMutation({
+		mutationFn: questionsService.generate,
+		invalidate: {
+			queryKey: ["admin-questions"]
+		},
+		success: {
+			description: "Вопросы успешно сгенерированы."
 		}
 	})
 

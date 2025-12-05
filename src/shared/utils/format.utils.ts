@@ -12,8 +12,8 @@ export const formatPhone = (value?: string | null) => {
 
 export const formatFormPhone = (phone?: string) => {
 	if (!phone) return ""
-	if (phone?.startsWith("998")) return phone
-	return `998` + phone
+	if (phone?.startsWith("998")) return phone.split(" ").join("")
+	return `998` + phone.split(" ").join("")
 }
 
 export const formatFormReversePhone = (phone?: string) => {
@@ -28,3 +28,5 @@ export const formatCustomDate = (
 	value?: string | Dayjs,
 	format: string = "YYYY-MM-DD"
 ) => dayjs(value).format(format)
+
+export const formatInputPhone = <T>(value?: T) => `${value}`.replace(/(\d{2})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4")
