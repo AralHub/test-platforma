@@ -69,8 +69,11 @@ export const QuestionsPage = () => {
 										/>
 									</Upload>
 									<DeleteButton
-										data={item.text}
+										data={item?.text}
+										title={`Вы действительно хотите убрать "${item?.text || ""}"?`}
 										onConfirm={() => deleteQuestion(String(item.id))}
+										okText={"Да"}
+										cancelText={"Нет"}
 									/>
 								</Flex>
 							</Flex>

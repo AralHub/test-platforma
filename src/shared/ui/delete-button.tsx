@@ -7,12 +7,16 @@ interface DeleteButtonProps extends ButtonProps {
 	title?: string
 	data?: string
 	onConfirm?: () => void
+	okText?: string
+	cancelText?: string
 }
 
 const DeleteButton: FC<DeleteButtonProps> = ({
 	title,
 	onConfirm,
 	data,
+	okText,
+	cancelText,
 	...props
 }) => {
 	const { token } = useToken()
@@ -26,7 +30,8 @@ const DeleteButton: FC<DeleteButtonProps> = ({
 						</div>
 					)
 				}
-				okText={"Удалить"}
+				okText={okText || "Удалить"}
+				cancelText={cancelText}
 				okButtonProps={{
 					danger: true
 				}}

@@ -4,14 +4,26 @@ import type { ErrorComponentProps } from "@tanstack/react-router"
 import { ErrorComponent, useRouter } from "@tanstack/react-router"
 import { Button, Flex, Result, Space } from "antd"
 import { type FC, useEffect } from "react"
+import type { ResponseError } from "src/shared/api"
+import { useAuth } from "src/shared/hooks"
 
 const ErrorBoundary: FC<ErrorComponentProps> = ({ error }) => {
 	const queryErrorResetBoundary = useQueryErrorResetBoundary()
 	const router = useRouter()
+	const { logout } = useAuth()
+	const responseError = error as ResponseError
 
 	useEffect(() => {
 		queryErrorResetBoundary.reset()
-	}, [queryErrorResetBoundary])
+		if (responseError?.status === 401) {
+			logout()
+			router.navigate({
+				to: "/auth/login",
+				replace: true,
+				ignoreBlocker: true,
+			})
+		}
+	}, [logout, queryErrorResetBoundary, responseError?.status, router])
 
 	return (
 		<Flex justify={"center"} align={"center"} flex={1}>
