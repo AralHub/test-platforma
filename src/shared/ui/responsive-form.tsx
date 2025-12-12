@@ -1,5 +1,4 @@
 import { Flex, Grid, Image } from "antd"
-import img from "../assets/aralhub.png"
 import { useToken } from "src/shared/hooks"
 import type { FC, ReactNode } from "react"
 
@@ -24,7 +23,7 @@ export const ResponsiveForm: FC<ResponsiveProps> = ({ children }) => {
 				vertical={true}
 			>
 				<Flex justify="start">
-					<Image src={img} preview={false} />
+					<Image src={"/logo.png"} preview={false} />
 				</Flex>
 				<Flex vertical={true} style={{ padding: "50px 25px" }}>
 					{children}
@@ -54,7 +53,12 @@ export const ResponsiveForm: FC<ResponsiveProps> = ({ children }) => {
 				vertical={true}
 				justify="center"
 				align="center"
-				style={{ width: "50%", backgroundColor: "#BEEDFF", height: "100vh", overflow: "hidden" }}
+				style={{
+					width: "50%",
+					backgroundColor: "#BEEDFF",
+					height: "100vh",
+					overflow: "hidden"
+				}}
 			>
 				<Image width={imageWidth - 250} src={"/logo.png"} preview={false} />
 			</Flex>
