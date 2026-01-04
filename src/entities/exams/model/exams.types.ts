@@ -6,6 +6,7 @@ export type Exam = {
 	is_active: boolean
 	total_score?: number
 	questions_per_subject: number
+	questions_count: number
 	passed?: boolean
 	is_expired?: boolean
 

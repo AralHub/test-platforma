@@ -48,7 +48,7 @@ export const TestsPage = () => {
 						{exams?.data?.map((el, index) => {
 							const percent = getPercent(
 								el?.total_score,
-								el?.questions_per_subject
+								el?.questions_count
 							)
 							return (
 								<Col xs={24} sm={12} md={12} lg={12} xl={8} xxl={6} key={index}>
@@ -64,7 +64,7 @@ export const TestsPage = () => {
 												<ClockCircleOutlined /> {el?.time_limit_minutes} мин
 											</div>
 											<div>
-												<QuestionCircleOutlined /> {el?.questions_per_subject} вопросов
+												<QuestionCircleOutlined /> {el?.questions_count} вопросов
 											</div>
 										</Space>
 										{el?.passed || el?.is_expired ? (
@@ -90,7 +90,7 @@ export const TestsPage = () => {
 														type={"circle"}
 														percent={percent}
 														format={() =>
-															`${el?.total_score}/${el?.questions_per_subject}`
+															`${el?.total_score}/${el?.questions_count}`
 														}
 													/>
 												</Flex>
