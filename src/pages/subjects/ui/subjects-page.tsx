@@ -101,7 +101,7 @@ export const SubjectsPage: FC = () => {
 								>
 									<Typography.Title
 										level={4}
-										style={{ marginBottom: 8 }}
+										style={{ marginBottom: 8, minHeight: 60 }}
 									>
 										{el?.name}
 									</Typography.Title>

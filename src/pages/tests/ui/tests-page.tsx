@@ -64,7 +64,7 @@ export const TestsPage = () => {
 												<ClockCircleOutlined /> {el?.time_limit_minutes} мин
 											</div>
 											<div>
-												<QuestionCircleOutlined /> 10 вопросов
+												<QuestionCircleOutlined /> {el?.questions_per_subject} вопросов
 											</div>
 										</Space>
 										{el?.passed || el?.is_expired ? (
