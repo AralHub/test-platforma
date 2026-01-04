@@ -6,6 +6,7 @@ export type Users = {
 		title: string
 		total_score: number
 		total_time: number
+		questions_count: number
 	}[]
 }
 

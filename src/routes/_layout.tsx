@@ -15,7 +15,16 @@ import {
 	useNavigate
 } from "@tanstack/react-router"
 import type { MenuProps } from "antd"
-import { Divider, Drawer, Flex, Image, Layout, Menu, Typography } from "antd"
+import {
+	Button,
+	Divider,
+	Drawer,
+	Flex,
+	Image,
+	Layout,
+	Menu,
+	Typography
+} from "antd"
 import { useResponsive } from "antd-style"
 import type { FC, PropsWithChildren } from "react"
 import { useEffect, useState } from "react"
@@ -39,9 +48,19 @@ const { Header, Content, Sider } = Layout
 
 const itemsAdmin: MenuProps["items"] = [
 	{
+		key: "Main",
+		type: "group",
+		label: "Главная"
+	},
+	{
 		key: "/tests",
 		icon: <HomeOutlined style={{ fontSize: 16 }} />,
 		label: "Тесты"
+	},
+	{
+		key: "Exams",
+		type: "group",
+		label: "Экзамены"
 	},
 	{
 		key: "/exams",
@@ -59,9 +78,14 @@ const itemsAdmin: MenuProps["items"] = [
 		label: "Результаты"
 	},
 	{
+		key: "Statistics",
+		type: "group",
+		label: "Статистика"
+	},
+	{
 		key: "/statistics",
 		icon: <BarChartOutlined style={{ fontSize: 16 }} />,
-		label: "Статистика",
+		label: "Статистика"
 	}
 	// {
 	// 	key: "/auth/register",
@@ -89,17 +113,17 @@ const SiderbarContainer: FC<
 		toggleCollapsed: () => void
 	}>
 > = ({ children, collapsed, toggleCollapsed }) => {
-	const { mobile } = useResponsive()
+	const { md } = useResponsive()
 	const {
-		token: { colorWhite }
+		token: { colorWhite, colorBorder }
 	} = useToken()
 
-	if (mobile)
+	if (!md)
 		return (
 			<Drawer
 				closable={false}
 				placement={"left"}
-				width={295}
+				width={290}
 				open={!collapsed}
 				onClose={toggleCollapsed}
 				styles={{
@@ -119,6 +143,7 @@ const SiderbarContainer: FC<
 			collapsedWidth={0}
 			style={{
 				backgroundColor: colorWhite,
+				borderRight: `1px solid ${colorBorder}`,
 				height: "100vh",
 				position: "sticky",
 				left: 0,
@@ -135,7 +160,7 @@ function RouteComponent() {
 	const { mobile } = useResponsive()
 	const [collapsed, setCollapsed] = useState(false)
 	const {
-		token: { colorWhite, colorPrimary, sizeMD, sizeXL }
+		token: { colorWhite, colorPrimary, sizeMD, colorBgContainer, colorBorder }
 	} = useToken()
 	const navigate = useNavigate()
 	const { pathname } = useLocation()
@@ -151,101 +176,102 @@ function RouteComponent() {
 				collapsed={collapsed}
 				toggleCollapsed={() => setCollapsed((prev) => !prev)}
 			>
-				{mobile && (
-					<Flex
-						onClick={() => setCollapsed(false)}
-						justify="flex-end"
-						style={{ padding: "20px", paddingBottom: 0 }}
-					>
-						<CloseOutlined style={{ fontSize: sizeXL }} />
-					</Flex>
-				)}
-				<Flex
-					align="center"
+				<nav
 					style={{
-						paddingLeft: 10,
-						paddingBottom: "28px",
-						paddingTop: "40px",
-						paddingRight: 15
+						paddingInline: 20
 					}}
 				>
-					<Image
-						src={"/logo.png"}
-						fallback={"/public/logo.png"}
-						preview={false}
-						width={100}
-						style={{ flexShrink: 0 }}
-					/>
-					<Flex vertical={true}>
-						<Title
-							level={3}
-							style={{ color: colorPrimary, whiteSpace: "nowrap" }}
-						>
-							Прокуратура
-						</Title>
-						{/* <Title
+					<Flex
+						align="center"
+						style={{
+							paddingBlock: 16
+						}}
+						gap={8}
+					>
+						<Image
+							src={"/pro-logo.png"}
+							fallback={"/public/pro-logo.png"}
+							preview={false}
+							height={64}
+							style={{ flexShrink: 0 }}
+						/>
+						<Flex vertical={true}>
+							<Title
+								level={3}
+								style={{ whiteSpace: "nowrap" }}
+							>
+								Прокуратура
+							</Title>
+							{/* <Title
 							level={4}
 							style={{ color: colorPrimary, whiteSpace: "nowrap" }}
 						>
 							academy
 						</Title> */}
+						</Flex>
 					</Flex>
-				</Flex>
-				<Divider style={{ margin: 0 }} />
-				<Menu
-					theme="dark"
-					onClick={(e) => {
-						navigate({ to: e.key })
-						if (mobile) {
-							setCollapsed(true)
-						}
-					}}
-					mode="inline"
-					style={{
-						backgroundColor: colorWhite,
-						margin: "20px 0px 80px",
-						padding: "8px 36px",
-						fontSize: 16,
-						overflowY: "auto",
-						height: "calc(100vh - 168px - 40px)",
-						scrollbarWidth: "thin"
-					}}
-					selectedKeys={[pathname]}
-					items={
-						(role === "admin" ? itemsAdmin : items)?.map((el) => ({
-							...el,
-							style: {
-								marginBottom: 20
+					<Menu
+						theme={"light"}
+						onClick={(e) => {
+							navigate({ to: e.key })
+							if (mobile) {
+								setCollapsed(true)
 							}
-						})) as MenuProps["items"]
-					}
-				/>
+						}}
+						mode={"inline"}
+						style={{
+							backgroundColor: colorWhite,
+							fontSize: 16,
+							overflowY: "auto",
+							height: "calc(100vh - 96px)",
+							scrollbarWidth: "thin"
+						}}
+						selectedKeys={[pathname]}
+						items={
+							(role === "admin" ? itemsAdmin : items)?.map((el) => ({
+								...el,
+								style: {
+									marginBottom: 20
+								}
+							})) as MenuProps["items"]
+						}
+					/>
+				</nav>
 			</SiderbarContainer>
 			<Layout
 				style={{
 					// backgroundColor: colorBgContainer,
-					minHeight: "100vh",
-					paddingLeft: 30,
-					paddingRight: 24
+					minHeight: "100vh"
 				}}
 			>
 				<Header
 					style={{
-						backgroundColor: "inherit",
-						height: 100,
-						padding: "28px 0px"
+						backgroundColor: colorBgContainer,
+						height: 76,
+						padding: "16px 24px",
+						lineHeight: 1,
+						borderBottom: `1px solid ${colorBorder}`,
 					}}
 				>
-					<Flex justify="space-between">
-						<MenuOutlined
+					<Flex
+						justify="space-between"
+						align={"center"}
+						style={{ height: "100%" }}
+					>
+						<Button
 							onClick={() => setCollapsed((prev) => !prev)}
-							style={{ fontSize: sizeMD, cursor: "pointer" }}
+							type={"text"}
+							size={"large"}
+							shape={"circle"}
+							icon={
+								<MenuOutlined style={{ fontSize: sizeMD, cursor: "pointer" }} />
+							}
 						/>
 						{isAuth && <ProfileAvatar />}
 					</Flex>
 				</Header>
 				<Content>
-					<Flex vertical={true} gap={16}>
+					<Flex vertical={true} gap={mobile ? 16 : 24} style={{ padding: mobile ? 16 : 24 }}>
 						<Outlet />
 					</Flex>
 				</Content>

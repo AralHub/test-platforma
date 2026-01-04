@@ -1,6 +1,15 @@
 import { PhoneOutlined } from "@ant-design/icons"
 import type { FormProps } from "antd"
-import { Input, Form, Divider, Button, App, InputNumber } from "antd"
+import {
+	Input,
+	Form,
+	Divider,
+	Button,
+	App,
+	InputNumber,
+	Typography,
+	Checkbox
+} from "antd"
 import { formatFormPhone, formatInputPhone } from "src/shared/utils"
 import type { RegisterFormType } from "../model/types"
 import { useRegisterMutation } from "../api/api"
@@ -56,8 +65,18 @@ export const RegisterForm = () => {
 				form={form}
 				onFinish={onFinish}
 				name={"login-form"}
+				style={{
+					maxWidth: 450,
+					width: "100%"
+				}}
 				labelCol={{ style: { fontWeight: 500 } }}
 			>
+				<div style={{ marginBottom: 32 }}>
+					<Typography.Title level={2}>Регистрация</Typography.Title>
+					<Typography.Paragraph type={"secondary"}>
+						Введите своё имя, телефон номер и пароль для регистрации!
+					</Typography.Paragraph>
+				</div>
 				<Form.Item<RegisterFormType>
 					label={"Имя"}
 					name={"name"}
@@ -78,6 +97,7 @@ export const RegisterForm = () => {
 						maxLength={12}
 						controls={false}
 						keyboard={false}
+						style={{ width: "100%" }}
 						suffix={<PhoneOutlined />}
 					/>
 				</Form.Item>
@@ -88,24 +108,40 @@ export const RegisterForm = () => {
 				>
 					<InputPassword placeholder={"Пароль"} />
 				</Form.Item>
-
-				<Link to="/auth/login" style={{ color: colorPrimary }}>
-					У меня уже есть аккаунт
-				</Link>
-				<Divider style={{ marginBlock: 8 }} />
+				<Form.Item
+					noStyle={true}
+					valuePropName={"checked"}
+					initialValue={false}
+				>
+					<Checkbox
+						style={{
+							fontSize: 13,
+							alignItems: "start",
+							display: "flex",
+							justifyContent: "start"
+						}}
+					>
+						Создавая учетную запись, вы соглашаетесь с Условиями использования и
+						нашей Политикой конфиденциальности.
+					</Checkbox>
+				</Form.Item>
 				<Form.Item noStyle={true}>
 					<Button
 						loading={registerLoading}
 						type={"primary"}
-						style={{
-							backgroundColor: colorPrimary
-						}}
+						style={{ marginBlock: 8 }}
 						htmlType={"submit"}
 						block={true}
 					>
 						Регистрация
 					</Button>
 				</Form.Item>
+				<Typography.Paragraph>
+					У вас уже есть аккаунт?{" "}
+					<Link to="/auth/login" style={{ color: colorPrimary }}>
+						Войти
+					</Link>
+				</Typography.Paragraph>
 			</Form>
 			<VerifyForm
 				onCancel={onCancel}

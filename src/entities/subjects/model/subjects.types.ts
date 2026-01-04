@@ -1,6 +1,7 @@
 export type Subject = {
 	id: number
 	name: string
+	questions_count: number
 }
 
 export type SubjectChange = {

@@ -17,20 +17,23 @@ const AntdProvider: FC<PropsWithChildren> = ({ children }) => {
 				theme={{
 					token: {
 						fontFamily: `Open Sans,${token.fontFamily}`,
-						colorPrimary: "#394869",
-						colorBgLayout: "#F4F7FE"
+						colorPrimary: "#465fff",
+						colorBgLayout: "#f9fafb",
+						colorBorder: "#e4e7ec",
+						colorBorderSecondary: "#e4e7ec"
 					},
 					components: {
 						Menu: {
-							itemHeight: 48,
-							itemColor: "rgb(27, 37, 89)",
-							darkItemColor: "rgb(27, 37, 89)",
-							darkItemHoverColor: "rgb(27, 37, 89)",
-							darkItemHoverBg: "rgb(244, 247, 254)"
+							itemHeight: 46,
+							// itemColor: "#344054",
+							// itemHoverBg: "#f2f4f7",
+							// itemSelectedBg: "#ecf3ff",
+							// itemSelectedColor: "#465fff",
+							// itemActiveBg: "#ecf3ff",
 						},
 						Modal: {
-							contentBg: "#F4F7FE",
-							headerBg: "#F4F7FE"
+							contentBg: "#f9fafb",
+							headerBg: "#f9fafb"
 						},
 						Input: {
 							activeShadow: ""

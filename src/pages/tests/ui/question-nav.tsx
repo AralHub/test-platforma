@@ -15,6 +15,9 @@ export const QuestionNav: React.FC<QuestionNavProps> = ({
 	successValues,
 	errorValues
 }) => {
+	
+	if(!questionIds?.length) return 
+	
 	return (
 		<Affix offsetTop={24}>
 			<Card>

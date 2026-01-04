@@ -1,7 +1,7 @@
 import { PhoneOutlined } from "@ant-design/icons"
 import { Link, useNavigate } from "@tanstack/react-router"
 import type { FormProps } from "antd"
-import { Input, Form, Divider, Button, InputNumber } from "antd"
+import { Input, Form, Divider, Button, InputNumber, Typography } from "antd"
 import { useEffect } from "react"
 import { useAuth, useToken } from "src/shared/hooks"
 import { formatFormPhone, formatInputPhone } from "src/shared/utils"
@@ -47,8 +47,18 @@ export const LoginForm = () => {
 			form={form}
 			onFinish={onFinish}
 			name={"login-form"}
+			style={{
+				maxWidth: 450,
+				width: "100%"
+			}}
 			labelCol={{ style: { fontWeight: 500 } }}
 		>
+			<div style={{ marginBottom: 32 }}>
+				<Typography.Title level={2}>Войти</Typography.Title>
+				<Typography.Paragraph type={"secondary"}>
+					Введите свой телефон номер и пароль для входа!
+				</Typography.Paragraph>
+			</div>
 			<Form.Item<LoginFormType>
 				label={"Телефон номер"}
 				name={"phone_number"}
@@ -62,6 +72,9 @@ export const LoginForm = () => {
 					maxLength={12}
 					controls={false}
 					keyboard={false}
+					style={{
+						width: "100%"
+					}}
 					suffix={<PhoneOutlined />}
 				/>
 			</Form.Item>
@@ -72,9 +85,12 @@ export const LoginForm = () => {
 			>
 				<InputPassword placeholder={"Пароль"} />
 			</Form.Item>
-			<Link to="/auth/register" style={{ color: colorPrimary }}>
-				Нет аккаунта?
-			</Link>
+			<Typography.Paragraph>
+				У вас нет аккаунта?{" "}
+				<Link to="/auth/register" style={{ color: colorPrimary }}>
+					Зарегистрируйтесь
+				</Link>
+			</Typography.Paragraph>
 			<Divider style={{ marginBlock: 8 }} />
 			<Form.Item noStyle={true}>
 				<Button

@@ -5,6 +5,7 @@ export type Exam = {
 	time_limit_minutes: number
 	is_active: boolean
 	total_score?: number
+	questions_per_subject: number
 	passed?: boolean
 	is_expired?: boolean
 

@@ -97,8 +97,8 @@ const ProfileAvatar: FC = () => {
 				}
 			>
 				<Space style={{ cursor: "pointer" }}>
-					{profile?.data.name}
 					<Avatar
+						size={"large"}
 						icon={
 							isLoading ? (
 								<LoadingOutlined spin={true} />
@@ -107,6 +107,12 @@ const ProfileAvatar: FC = () => {
 							)
 						}
 					/>
+					<Typography.Text
+						strong={true}
+						style={{ textTransform: "capitalize" }}
+					>
+						{profile?.data.name}
+					</Typography.Text>
 					{/* <Typography.Text
 						hidden={mobile}
 						color={colorWhite}

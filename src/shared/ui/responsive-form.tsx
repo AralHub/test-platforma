@@ -1,6 +1,6 @@
 import { Flex, Grid, Image } from "antd"
-import { useToken } from "src/shared/hooks"
 import type { FC, ReactNode } from "react"
+import { useToken } from "src/shared/hooks"
 
 const { useBreakpoint } = Grid
 interface ResponsiveProps {
@@ -8,7 +8,7 @@ interface ResponsiveProps {
 }
 export const ResponsiveForm: FC<ResponsiveProps> = ({ children }) => {
 	const screens = useBreakpoint()
-	const isMobile = screens.xs
+	const isMobile = !screens.md
 	const {
 		token: { colorBgContainer }
 	} = useToken()
@@ -22,21 +22,26 @@ export const ResponsiveForm: FC<ResponsiveProps> = ({ children }) => {
 				}}
 				vertical={true}
 			>
-				<Flex justify="start">
-					<Image src={"/logo.png"} preview={false} />
+				<Flex justify={"center"}>
+					<Image width={250} src={"/logo.png"} preview={false} />
 				</Flex>
-				<Flex vertical={true} style={{ padding: "50px 25px" }}>
+				<Flex
+					vertical={true}
+					justify={"center"}
+					align={"center"}
+					style={{ padding: "48px 24px" }}
+				>
 					{children}
 				</Flex>
 			</Flex>
 		)
 	const imageWidth = screens.xl
-		? 700
+		? 350
 		: screens.lg
-			? 500
+			? 250
 			: screens.md
-				? 350
-				: 250
+				? 200
+				: 150
 	return (
 		<Flex
 			style={{
@@ -44,23 +49,52 @@ export const ResponsiveForm: FC<ResponsiveProps> = ({ children }) => {
 				height: "100vh",
 				backgroundColor: colorBgContainer
 			}}
-			align="center"
+			align={"center"}
 		>
-			<Flex justify="center" style={{ width: "50%" }}>
+			<Flex justify={"center"} style={{ width: "50%", padding: 24 }}>
 				{children}
 			</Flex>
 			<Flex
 				vertical={true}
-				justify="center"
-				align="center"
+				justify={"center"}
+				align={"center"}
 				style={{
+					position: "relative",
 					width: "50%",
-					backgroundColor: "#BEEDFF",
+					backgroundColor: "#161950",
 					height: "100vh",
 					overflow: "hidden"
 				}}
 			>
-				<Image width={imageWidth - 250} src={"/logo.png"} preview={false} />
+				<Image width={imageWidth} src={"/pro-logo.png"} preview={false} />
+				<div
+					style={{
+						position: "absolute",
+						top: 0,
+						right: 0
+					}}
+				>
+					<Image
+						width={screens.xl ? 450 : 250}
+						src={"/assets/grid.svg"}
+						fallback={"/public/assets/grid.svg"}
+						preview={false}
+					/>
+				</div>
+				<div
+					style={{
+						position: "absolute",
+						bottom: 0,
+						left: 0
+					}}
+				>
+					<Image
+						width={screens.xl ? 450 : 250}
+						src={"/assets/grid.svg"}
+						fallback={"/public/assets/grid.svg"}
+						preview={false}
+					/>
+				</div>
 			</Flex>
 		</Flex>
 	)
