@@ -1,7 +1,6 @@
 import {
 	BarChartOutlined,
 	BookOutlined,
-	CloseOutlined,
 	HomeOutlined,
 	MenuOutlined,
 	OrderedListOutlined,
@@ -17,7 +16,6 @@ import {
 import type { MenuProps } from "antd"
 import {
 	Button,
-	Divider,
 	Drawer,
 	Flex,
 	Image,
@@ -160,7 +158,7 @@ function RouteComponent() {
 	const { mobile } = useResponsive()
 	const [collapsed, setCollapsed] = useState(false)
 	const {
-		token: { colorWhite, colorPrimary, sizeMD, colorBgContainer, colorBorder }
+		token: { colorWhite, sizeMD, colorBgContainer, colorBorder }
 	} = useToken()
 	const navigate = useNavigate()
 	const { pathname } = useLocation()

@@ -1,13 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { Badge, Card, Empty, Flex, Select, Space, Spin } from "antd"
 import { css, cx, useResponsive } from "antd-style"
-import { useToken } from "src/shared/hooks"
 import { useEffect, useRef, useState } from "react"
-import { QuestionNav } from "src/pages/tests/ui/question-nav"
-import Title from "antd/es/typography/Title"
-import { useGetUsersById, useGetUsersByIdAnswers } from "src/entities/users"
-import { ArrowLeftOutlined } from "@ant-design/icons"
 import { useGetExamsListByUserId } from "src/entities/exams"
+import { useGetUsersById, useGetUsersByIdAnswers } from "src/entities/users"
+import { QuestionNav } from "src/pages/tests/ui/question-nav"
+import { useToken } from "src/shared/hooks"
 import { PageHeader } from "src/widgets/page-header"
 
 export const Route = createFileRoute("/_layout/users/$userId")({
@@ -50,7 +48,6 @@ function RouteComponent() {
 	} = useToken()
 	const [exam, setExam] = useState<string>()
 
-	const navigate = Route.useNavigate()
 	const { data: user, isLoading } = useGetUsersById(userId)
 	const {
 		data: userAnswers,

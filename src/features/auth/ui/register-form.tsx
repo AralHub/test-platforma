@@ -1,22 +1,21 @@
 import { PhoneOutlined } from "@ant-design/icons"
+import { Link } from "@tanstack/react-router"
 import type { FormProps } from "antd"
 import {
-	Input,
-	Form,
-	Divider,
-	Button,
 	App,
+	Button,
+	Checkbox,
+	Form,
+	Input,
 	InputNumber,
-	Typography,
-	Checkbox
+	Typography
 } from "antd"
-import { formatFormPhone, formatInputPhone } from "src/shared/utils"
-import type { RegisterFormType } from "../model/types"
-import { useRegisterMutation } from "../api/api"
-import { VerifyForm } from "./verify-form"
 import { useEffect, useState } from "react"
 import { useToken } from "src/shared/hooks"
-import { Link } from "@tanstack/react-router"
+import { formatFormPhone, formatInputPhone } from "src/shared/utils"
+import { useRegisterMutation } from "../api/api"
+import type { RegisterFormType } from "../model/types"
+import { VerifyForm } from "./verify-form"
 
 const { Password: InputPassword } = Input
 const { useApp } = App

@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined } from "@ant-design/icons"
-import { useNavigate, useRouter } from "@tanstack/react-router"
+import { useRouter } from "@tanstack/react-router"
 import { Breadcrumb, BreadcrumbProps, Flex, Space, Typography } from "antd"
 import { useResponsive } from "antd-style"
 import type { FC, ReactNode } from "react"
@@ -60,3 +60,4 @@ const PageHeader: FC<PageHeaderProps> = ({
 }
 
 export { PageHeader }
+
