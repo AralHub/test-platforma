@@ -1,5 +1,9 @@
 import { api, type ResponseSingleData, type ResponseData } from "src/shared/api"
-import type { Subject, SubjectChange } from "./subjects.types"
+import type {
+	Subject,
+	SubjectChange,
+	SubjectsQuestionFile
+} from "./subjects.types"
 import type { GetParams, ParamId } from "src/shared/types"
 
 class SubjectsService {
@@ -10,6 +14,21 @@ class SubjectsService {
 
 	getById = async (id: ParamId): Promise<ResponseSingleData<Subject>> => {
 		const response = await api.get(`/admin/subjects/${id}`)
+		return response.data
+	}
+
+	addFile = async ({
+		subject_id,
+		file
+	}: SubjectsQuestionFile): Promise<
+		ResponseSingleData<{ total_count: number }>
+	> => {
+		const fileFormData = new FormData()
+		fileFormData.append("file", file)
+		const response = await api.post(
+			`/admin/questions/file?subject_id=${subject_id}`,
+			fileFormData
+		)
 		return response.data
 	}
 

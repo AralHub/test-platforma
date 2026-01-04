@@ -37,6 +37,7 @@ export const SubjectQuestionsPage: FC = () => {
 	})
 	const { mutate: deleteQuestion } = useDeleteQuestion()
 	const { mutate: addImage } = useAddImage()
+
 	const navigate = useNavigate()
 	const {
 		token: { colorWhite }

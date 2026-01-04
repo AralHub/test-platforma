@@ -1,10 +1,11 @@
-import { EyeOutlined } from "@ant-design/icons"
+import { EyeOutlined, FileAddOutlined } from "@ant-design/icons"
 import { Link } from "@tanstack/react-router"
 import type { TableColumnsType } from "antd"
-import { Button, Flex, Space, Table, Typography } from "antd"
+import { Button, Flex, Space, Table, Typography, Upload } from "antd"
 import { useMemo, type FC } from "react"
 import type { Subject } from "src/entities/subjects"
 import {
+	useCreateSubjectsQuestionFile,
 	useDeleteSubjectsMutation,
 	useGetSubjectsQuery
 } from "src/entities/subjects"
@@ -27,6 +28,7 @@ export const SubjectsPage: FC = () => {
 	} = useGetSubjectsQuery()
 
 	const { mutate: deleteSubject } = useDeleteSubjectsMutation()
+	const { mutate: addFile } = useCreateSubjectsQuestionFile()
 
 	const columns: TableColumnsType<Subject> = useMemo(
 		() =>
@@ -57,6 +59,18 @@ export const SubjectsPage: FC = () => {
 							>
 								<Button icon={<EyeOutlined />} children={"Открыть"} />
 							</Link>
+							<Upload
+								showUploadList={false}
+								beforeUpload={(file) => {
+									addFile({ subject_id: record.id, file })
+									return false
+								}}
+							>
+								<Button
+									type="primary"
+									icon={<FileAddOutlined style={{ fontSize: 20 }} />}
+								/>
+							</Upload>
 							<EditButton params={record} />
 							<DeleteButton
 								onConfirm={() => {
