@@ -4,7 +4,6 @@ import type { FormProps } from "antd"
 import {
 	App,
 	Button,
-	Checkbox,
 	Form,
 	Input,
 	InputNumber,
@@ -107,7 +106,7 @@ export const RegisterForm = () => {
 				>
 					<InputPassword placeholder={"Пароль"} />
 				</Form.Item>
-				<Form.Item
+				{/* <Form.Item
 					noStyle={true}
 					valuePropName={"checked"}
 					initialValue={false}
@@ -123,7 +122,7 @@ export const RegisterForm = () => {
 						Создавая учетную запись, вы соглашаетесь с Условиями использования и
 						нашей Политикой конфиденциальности.
 					</Checkbox>
-				</Form.Item>
+				</Form.Item> */}
 				<Form.Item noStyle={true}>
 					<Button
 						loading={registerLoading}
