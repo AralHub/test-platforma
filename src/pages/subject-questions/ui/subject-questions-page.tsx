@@ -121,6 +121,7 @@ export const SubjectQuestionsPage: FC = () => {
 											whiteSpace: "wrap",
 											fontSize: "inherit"
 										}}
+										color={question?.is_correct ? "green" : "default"}
 										key={question.text}
 									>
 										{question.text}
