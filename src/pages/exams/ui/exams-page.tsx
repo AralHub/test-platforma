@@ -97,8 +97,7 @@ export const ExamsPage = () => {
 											<ClockCircleOutlined /> {el?.time_limit_minutes} мин
 										</div>
 										<div>
-											<QuestionCircleOutlined /> {el?.questions_per_subject}{" "}
-											вопросов
+											<QuestionCircleOutlined /> {el?.questions_count} вопросов
 										</div>
 									</Space>
 									<div>

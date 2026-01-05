@@ -59,6 +59,7 @@ function RouteComponent() {
 	})
 	const { data: exams, isLoading: examsLoading } =
 		useGetExamsListByUserId(userId)
+	console.log(exams)
 
 	const handleClick = (key: string) => {
 		const ref = sectionRefs.current[key]
